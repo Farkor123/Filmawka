@@ -1,6 +1,23 @@
 create database if not exists filmawka;
 use filmawka;
 
+create table if not exists users (
+	user_id int not null auto_increment,
+    `name` varchar(20) not null,
+    surname varchar(20) not null,
+    nick varchar(50) not null,
+    email varchar(50) not null,
+    primary key(user_id)
+);
+
+create table if not exists passwords (
+	password_id int not null auto_increment,
+    user_id int,
+    password_hash binary(64) not null,
+    foreign key(user_id) references users(user_id),
+    primary key(password_id)
+);
+
 create table if not exists actors (
 	actor_id int not null auto_increment,
     `name` varchar(30) not null,
