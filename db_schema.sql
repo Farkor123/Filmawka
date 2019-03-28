@@ -40,6 +40,7 @@ create table if not exists directors (
 create table if not exists movies (
 	movie_id int not null auto_increment,
     title varchar(50) not null,
+    original_title varchar(50),
     director_id int,
     `description` text,
     average_score decimal(10, 8),
@@ -52,6 +53,7 @@ create table if not exists movies (
 create table if not exists tv_series (
 	tv_series_id int not null auto_increment,
     title varchar(50) not null,
+    original_title varchar(50),
     `description` text,
     average_score decimal(10, 8),
     primary key(tv_series_id)
