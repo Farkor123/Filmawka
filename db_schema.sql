@@ -37,6 +37,12 @@ create table if not exists directors (
     primary key(director_id)
 );
 
+create table if not exists categories (
+	category_id int not null auto_increment,
+    `name` varchar(30) not null,
+    primary key(category_id)
+);
+
 create table if not exists movies (
 	movie_id int not null auto_increment,
     title varchar(50) not null,
@@ -46,8 +52,10 @@ create table if not exists movies (
     average_score decimal(10, 8),
     release_date date,
     is_released bool not null,
+    category_id int,
     primary key(movie_id),
-    foreign key(director_id) references directors(director_id)
+    foreign key(director_id) references directors(director_id),
+    foreign key(category_id) references categories(category_id)
 );
 
 create table if not exists tv_series (
@@ -56,7 +64,9 @@ create table if not exists tv_series (
     original_title varchar(50),
     `description` text,
     average_score decimal(10, 8),
-    primary key(tv_series_id)
+    category_id int,
+    primary key(tv_series_id),
+    foreign key(category_id) references categories(category_id)
 );
 
 create table if not exists tv_seasons (
