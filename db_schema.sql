@@ -1,3 +1,4 @@
+drop database if exists filmawka;
 create database if not exists filmawka;
 use filmawka;
 
