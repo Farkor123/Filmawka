@@ -24,6 +24,7 @@ create table if not exists actors (
     `name` varchar(30) not null,
     surname varchar(30) not null,
     date_of_birth date not null,
+    date_of_death date,
     summary text,
     primary key(actor_id)
 );
