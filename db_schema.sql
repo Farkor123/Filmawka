@@ -98,8 +98,8 @@ create table if not exists ratings (
     user_id int,
     rating tinyint check (rating >= 1 and rating <= 10),
     rating_date datetime not null,
-    primary key(rating_id)
-#    foreign key(user_id) references users(user_id)
+    primary key(rating_id),
+    foreign key(user_id) references users(user_id)
 );
 
 create table if not exists rating_movie (
