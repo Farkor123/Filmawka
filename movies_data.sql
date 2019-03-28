@@ -146,3 +146,14 @@ insert into directors(`name`, surname, date_of_birth, date_of_death, summary) va
 insert into directors(`name`, surname, date_of_birth, date_of_death, summary) values ('Alan', 'Taylor', '1965-06-11', null, 'Alan Taylor was born in 1965. He is a director and producer, known for Gra o tron (2011), Thor: Mroczny świat (2013) and Nowe szaty cesarza (2001).');
 insert into directors(`name`, surname, date_of_birth, date_of_death, summary) values ('Kenneth', 'Branagh', '1960-12-10', null, 'Sir Kenneth Charles Branagh – brytyjski aktor, reżyser i scenarzysta. Wszechstronnie uzdolniony filmowiec, znany głównie dzięki swym adaptacjom sztuk Williama Szekspira. Sukcesy w repertuarze szekspirowskim odnosił już na scenach teatralnych – w latach 80. należał do zespołu prestiżowej The Royal Shakespeare Company.');
 insert into directors(`name`, surname, date_of_birth, date_of_death, summary) values ('Martin', 'Scorsese', '1942-11-17', null, 'Martin Scorsese – amerykański reżyser, scenarzysta, montażysta, aktor i producent filmowy. Laureat Oscara za reżyserię filmu Infiltracja, doktor honoris causa Państwowej Wyższej Szkoły Filmowej Telewizyjnej i Teatralnej im. Leona Schillera w Łodzi.');
+
+-- categories
+insert into categories(`name`) values('komedia');
+insert into categories(`name`) values('kryminał');
+insert into categories(`name`) values('western');
+insert into categories(`name`) values('fantasy');
+insert into categories(`name`) values('akcja');
+insert into categories(`name`) values('thriller');
+insert into categories(`name`) values('dramat');
+insert into categories(`name`) values('wojenny');
+insert into categories(`name`) values('gangsterski');
