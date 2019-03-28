@@ -158,3 +158,17 @@ create table if not exists tv_episode_tv_season (
     foreign key(tv_episode_id) references tv_episodes(tv_episode_id),
     foreign key(tv_season_id) references tv_seasons(tv_season_id)
 );
+
+create table if not exists comments (
+	comment_id int not null auto_increment,
+    movie_id int null,
+    tv_series_id int null,
+    user_id int,
+    comment_date date not null,
+    content text not null,
+    primary key(comment_id),
+    foreign key(movie_id) references movies(movie_id),
+    foreign key(tv_series_id) references tv_series(tv_series_id),
+    foreign key(user_id) references users(user_id),
+    constraint MovieIdOrTvSeriesIdNotNull check (movie_id is not null or tv_series_id is not null)
+)
