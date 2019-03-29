@@ -92,7 +92,12 @@ begin
 	set @movies = '';
 	call get_movies_for_actor(actor_id, @movies);
     
-    set output = concat(output, '\nFilmy:\n', @movies);
+    set output = concat(output, '\n\nFilmy:\n', @movies);
+    
+    set @tv_series = '';
+    call get_tv_series_for_actor(actor_id, @tv_series);
+    
+    set output = concat(output, '\nSeriale:\n', @tv_series);
     
 	select output;
 end//
