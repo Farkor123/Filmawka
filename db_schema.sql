@@ -101,13 +101,13 @@ create table if not exists actor_movie (
     foreign key(actor_id) references actors(actor_id)
 );
 
-create table if not exists actor_tv_season (
+create table if not exists actor_tv_series (
 	actor_tv_season_id int not null auto_increment,
-    actor_id int references actors(actor_id),
-    tv_season_id int references tv_seasons(tv_season_id),
+    actor_id int,
+    tv_series_id int,
     primary key(actor_tv_season_id),
     foreign key(actor_id) references actors(actor_id),
-    foreign key(tv_season_id) references tv_seasons(tv_season_id)
+    foreign key(tv_series_id) references tv_series(tv_series_id)
 );
 
 create table if not exists ratings (
