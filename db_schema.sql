@@ -76,13 +76,15 @@ create table if not exists tv_seasons (
     season_number tinyint not null,
     number_of_episodes tinyint not null,
     average_score decimal(10, 8),
-    primary key(tv_season_id)
+    tv_series_id int not null,
+    primary key(tv_season_id),
+    foreign key(tv_series_id) references tv_series(tv_series_id)
 );
 
 create table if not exists tv_episodes (
 	tv_episode_id int not null auto_increment,
     title varchar(50) not null,
-    tv_season_id int,
+    tv_season_id int not null,
     duration_in_minutes tinyint unsigned not null,
     average_score decimal(10, 8),
     primary key(tv_episode_id),
@@ -150,15 +152,6 @@ create table if not exists rating_tv_episode (
     primary key(rating_tv_episode_id),
     foreign key(rating_id) references ratings(rating_id),
     foreign key(tv_episode_id) references tv_episodes(tv_episode_id)
-);
-
-create table if not exists tv_episode_tv_season (
-	tv_episode_tv_season_id int not null auto_increment,
-    tv_episode_id int,
-    tv_season_id int,
-    primary key(tv_episode_tv_season_id),
-    foreign key(tv_episode_id) references tv_episodes(tv_episode_id),
-    foreign key(tv_season_id) references tv_seasons(tv_season_id)
 );
 
 create table if not exists comments (
