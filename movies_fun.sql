@@ -56,6 +56,11 @@ begin
 	
 	set output = concat(output, '\nOpis: ', summary);
 	
+	set @movies = '';
+	call get_movies_for_actor(actor_id, @movies);
+    
+    set output = concat(output, '\nFilmy:\n', @movies);
+    
 	select output;
 end//
 DELIMITER ;
