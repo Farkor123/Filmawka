@@ -517,3 +517,40 @@ insert into actor_movie(movie_id, actor_id) values (27, 96);
 insert into actor_movie(movie_id, actor_id) values (27, 98);
 insert into actor_movie(movie_id, actor_id) values (27, 100);
 insert into actor_movie(movie_id, actor_id) values (27, 101);
+
+-- actor_tv_series
+-- Wataha
+insert into actor_tv_series(tv_series_id, actor_id) values (1, 102);
+insert into actor_tv_series(tv_series_id, actor_id) values (1, 103);
+insert into actor_tv_series(tv_series_id, actor_id) values (1, 104);
+insert into actor_tv_series(tv_series_id, actor_id) values (1, 105);
+insert into actor_tv_series(tv_series_id, actor_id) values (1, 106);
+insert into actor_tv_series(tv_series_id, actor_id) values (1, 107);
+insert into actor_tv_series(tv_series_id, actor_id) values (1, 108);
+-- Pakt
+insert into actor_tv_series(tv_series_id, actor_id) values (2, 113);
+insert into actor_tv_series(tv_series_id, actor_id) values (2, 108);
+insert into actor_tv_series(tv_series_id, actor_id) values (2, 114);
+insert into actor_tv_series(tv_series_id, actor_id) values (2, 115);
+insert into actor_tv_series(tv_series_id, actor_id) values (2, 116);
+insert into actor_tv_series(tv_series_id, actor_id) values (2, 111);
+-- Belfer
+insert into actor_tv_series(tv_series_id, actor_id) values (3, 109);
+insert into actor_tv_series(tv_series_id, actor_id) values (3, 110);
+insert into actor_tv_series(tv_series_id, actor_id) values (3, 104);
+insert into actor_tv_series(tv_series_id, actor_id) values (3, 111);
+insert into actor_tv_series(tv_series_id, actor_id) values (3, 112);
+-- PitBull
+insert into actor_tv_series(tv_series_id, actor_id) values (4, 113);
+insert into actor_tv_series(tv_series_id, actor_id) values (4, 118);
+insert into actor_tv_series(tv_series_id, actor_id) values (4, 119);
+insert into actor_tv_series(tv_series_id, actor_id) values (4, 120);
+insert into actor_tv_series(tv_series_id, actor_id) values (4, 121);
+insert into actor_tv_series(tv_series_id, actor_id) values (4, 122);
+-- Glina
+insert into actor_tv_series(tv_series_id, actor_id) values (5, 123);
+insert into actor_tv_series(tv_series_id, actor_id) values (5, 109);
+insert into actor_tv_series(tv_series_id, actor_id) values (5, 111);
+insert into actor_tv_series(tv_series_id, actor_id) values (5, 124);
+insert into actor_tv_series(tv_series_id, actor_id) values (5, 125);
+insert into actor_tv_series(tv_series_id, actor_id) values (5, 126);
