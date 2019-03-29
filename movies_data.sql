@@ -188,11 +188,11 @@ insert into movies(title, original_title, director_id, `description`, average_sc
 insert into movies(title, original_title, director_id, `description`, average_score, release_date, is_released, category_id) values('Thor: Ragnarok', 'Thor: Ragnarok', 14, 'Thor mierzy się w walce bogów, podczas gdy Asgard jest zagrożony Ragnarokiem, nordycką apokalipsą. ', null, '2017-10-25', true, 4);
 
 -- tv_series
-insert into tv_series(title, original_title, `description`, average_score, category_id) values('Wataha', 'Wataha', 'Kapitan Wiktor Rebrow próbuje rozwikłać zagadkę zamachu bombowego, w którym zginęli jego przyjaciele ze Straży Granicznej w Bieszczadach.', null, 6);
-insert into tv_series(title, original_title, `description`, average_score, category_id) values('Pakt', 'Pakt', 'Dziennikarz śledczy wpada na trop oszustwa w międzynarodowej korporacji.', null, 6);
-insert into tv_series(title, original_title, `description`, average_score, category_id) values('Belfer', 'Belfer', 'Do Dobrowic przyjeżdża Paweł Zawadzki, nauczyciel języka polskiego, który na własną rękę podejmuje śledztwo w sprawie śmierci uczennicy miejscowej szkoły średniej. ', null, 2);
-insert into tv_series(title, original_title, `description`, average_score, category_id) values('PitBull', 'PitBull', 'Warszawscy policjanci wydziału zabójstw zmagają się z problemami codziennego życia i stołeczną przestępczością.', null, 6);
-insert into tv_series(title, original_title, `description`, average_score, category_id) values('Glina', 'Glina', 'Policjanci z Wydziału Zabójstw Komendy Stołecznej Policji w Warszawie mierzą się z zagadkami kryminalnymi i trudami życia prywatnego, jakie niesie ze sobą niebezpieczna praca.', null, 2);
+insert into tv_series(title, original_title, `description`, average_score, release_date, is_released, category_id) values('Wataha', 'Wataha', 'Kapitan Wiktor Rebrow próbuje rozwikłać zagadkę zamachu bombowego, w którym zginęli jego przyjaciele ze Straży Granicznej w Bieszczadach.', null, '2014-10-12', true, 6);
+insert into tv_series(title, original_title, `description`, average_score, release_date, is_released, category_id) values('Pakt', 'Pakt', 'Dziennikarz śledczy wpada na trop oszustwa w międzynarodowej korporacji.', null, '2015-11-08', true, 6);
+insert into tv_series(title, original_title, `description`, average_score, release_date, is_released, category_id) values('Belfer', 'Belfer', 'Do Dobrowic przyjeżdża Paweł Zawadzki, nauczyciel języka polskiego, który na własną rękę podejmuje śledztwo w sprawie śmierci uczennicy miejscowej szkoły średniej. ', null, '2016-10-02', true, 2);
+insert into tv_series(title, original_title, `description`, average_score, release_date, is_released, category_id) values('PitBull', 'PitBull', 'Warszawscy policjanci wydziału zabójstw zmagają się z problemami codziennego życia i stołeczną przestępczością.', null, '2005-12-15', true, 6);
+insert into tv_series(title, original_title, `description`, average_score, release_date, is_released, category_id) values('Glina', 'Glina', 'Policjanci z Wydziału Zabójstw Komendy Stołecznej Policji w Warszawie mierzą się z zagadkami kryminalnymi i trudami życia prywatnego, jakie niesie ze sobą niebezpieczna praca.', null, '2004-09-09', true, 2);
 
 -- tv_seasons
 -- Wataha

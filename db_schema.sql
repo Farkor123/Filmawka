@@ -66,6 +66,8 @@ create table if not exists tv_series (
     original_title varchar(50),
     `description` text,
     average_score decimal(10, 8),
+    release_date date,
+    is_released bool not null,
     category_id int,
     primary key(tv_series_id),
     foreign key(category_id) references categories(category_id)
