@@ -211,3 +211,114 @@ insert into tv_seasons(season_number, number_of_episodes, average_score, tv_seri
 -- Glina
 insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(1, 12, null, 5);
 insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(2, 13, null, 5);
+
+-- tv_episodes
+-- Wataha sezon 1
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, null, 1, 41, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, null, 1, 36, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, null, 1, 44, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, null, 1, 47, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, null, 1, 53, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, null, 1, 49, null);
+-- Wataha sezon 2
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, null, 2, 56, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, null, 2, 57, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, null, 2, 56, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, null, 2, 57, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, null, 2, 57, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, null, 2, 56, null);
+-- Pakt sezon 1
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, 'Ofiara', 3, 55, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, 'Przebudzenie', 3, 44, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, 'Zstąpienie', 3, 49, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, 'Przymierze', 3, 48, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, 'Odkrycie', 3, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, 'Dzień sądu', 3, 55, null);
+-- Pakt sezon 2
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, 'Upadek', 4, 58, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, 'Zdrada', 4, 49, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, 'Zamach', 4, 48, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, 'Rozłam', 4, 49, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, 'Spisek', 4, 51, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, 'Układ', 4, 55, null);
+-- Belfer sezon 1
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, null, 5, 51, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, null, 5, 52, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, null, 5, 48, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, null, 5, 47, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, null, 5, 51, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, null, 5, 47, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(7, null, 5, 51, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(8, null, 5, 55, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(9, null, 5, 52, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(10, null, 5, 56, null);
+-- Belfer sezon 2
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, null, 6, 50, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, null, 6, 46, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, null, 6, 56, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, null, 6, 60, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, null, 6, 56, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, null, 6, 50, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(7, null, 6, 62, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(8, null, 6, 61, null);
+-- PitBull sezon 1
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, null, 7, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, null, 7, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, null, 7, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, null, 7, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, null, 7, 45, null);
+-- PitBull sezon 2
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(7, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(8, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(9, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(10, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(11, null, 8, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(12, null, 8, 45, null);
+-- PitBull sezon 3
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(7, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(8, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(9, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(10, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(11, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(12, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(13, null, 9, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(14, null, 9, 45, null);
+-- Glina sezon 1
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(7, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(8, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(9, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(10, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(11, null, 10, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(12, null, 10, 45, null);
+-- Glina sezon 2
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(1, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(2, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(3, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(4, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(5, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(6, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(7, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(8, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(9, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(10, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(11, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(12, null, 11, 45, null);
+insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(13, null, 11, 45, null);
