@@ -187,3 +187,12 @@ begin
     end if;
 end//
 DELIMITER ;
+
+drop procedure if exists rate_movie;
+DELIMITER //
+create procedure rate_movie(in user_id int, in movie_id int, in rating tinyint)
+begin
+	declare exit handler for 1062 select 'Film może być oceniony nie więcej niż raz!';
+    insert into movie_ratings(user_id, movie_id, rating) values(user_id, movie_id, rating);
+end//
+DELIMITER ;
