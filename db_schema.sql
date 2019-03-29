@@ -98,6 +98,7 @@ create table if not exists actor_movie (
 	actor_movie_id int not null auto_increment,
     movie_id int,
     actor_id int,
+    `role` varchar(50) not null,
     primary key(actor_movie_id),
     foreign key(movie_id) references movies(movie_id),
     foreign key(actor_id) references actors(actor_id)
@@ -107,53 +108,53 @@ create table if not exists actor_tv_series (
 	actor_tv_season_id int not null auto_increment,
     actor_id int,
     tv_series_id int,
+    `role` varchar(50) not null,
     primary key(actor_tv_season_id),
     foreign key(actor_id) references actors(actor_id),
     foreign key(tv_series_id) references tv_series(tv_series_id)
 );
 
-create table if not exists ratings (
-	rating_id int not null auto_increment,
-    user_id int,
+create table if not exists movie_ratings (
+	movie_rating_id int not null auto_increment,
+    user_id int not null,
+    movie_id int not null,
     rating tinyint check (rating >= 1 and rating <= 10),
-    rating_date datetime not null,
-    primary key(rating_id),
-    foreign key(user_id) references users(user_id)
-);
-
-create table if not exists rating_movie (
-	rating_movie_id int not null auto_increment,
-    rating_id int,
-    movie_id int,
-    primary key(rating_movie_id),
-    foreign key(rating_id) references ratings(rating_id),
+    rating_date datetime not null default now(),
+    primary key(movie_rating_id),
+    foreign key(user_id) references users(user_id),
     foreign key(movie_id) references movies(movie_id)
 );
 
-create table if not exists rating_tv_series (
-	rating_tv_series_id int not null auto_increment,
-    rating_id int,
-    tv_series_id int,
-    primary key(rating_tv_series_id),
-    foreign key(rating_id) references ratings(rating_id),
+create table if not exists tv_series_ratings (
+	tv_series_rating_id int not null auto_increment,
+    user_id int not null,
+    tv_series_id int not null,
+    rating tinyint check (rating >= 1 and rating <= 10),
+    rating_date datetime not null default now(),
+    primary key(tv_series_rating_id),
+    foreign key(user_id) references users(user_id),
     foreign key(tv_series_id) references tv_series(tv_series_id)
 );
 
-create table if not exists rating_tv_season (
-	rating_tv_season_id int not null auto_increment,
-    rating_id int,
-    tv_season_id int,
-    primary key(rating_tv_season_id),
-    foreign key(rating_id) references ratings(rating_id),
+create table if not exists tv_season_ratings (
+	tv_season_rating_id int not null auto_increment,
+    user_id int not null,
+    tv_season_id int not null,
+    rating tinyint check (rating >= 1 and rating <= 10),
+    rating_date datetime not null default now(),
+    primary key(tv_season_rating_id),
+    foreign key(user_id) references users(user_id),
     foreign key(tv_season_id) references tv_seasons(tv_season_id)
 );
 
-create table if not exists rating_tv_episode (
-	rating_tv_episode_id int not null auto_increment,
-    rating_id int,
-    tv_episode_id int,
-    primary key(rating_tv_episode_id),
-    foreign key(rating_id) references ratings(rating_id),
+create table if not exists tv_episode_ratings (
+	tv_episode_rating_id int not null auto_increment,
+    user_id int not null,
+    tv_episode_id int not null,
+    rating tinyint check (rating >= 1 and rating <= 10),
+    rating_date datetime not null default now(),
+    primary key(tv_episode_rating_id),
+    foreign key(user_id) references users(user_id),
     foreign key(tv_episode_id) references tv_episodes(tv_episode_id)
 );
 
