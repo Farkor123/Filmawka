@@ -193,3 +193,21 @@ insert into tv_series(title, original_title, `description`, average_score, categ
 insert into tv_series(title, original_title, `description`, average_score, category_id) values('Belfer', 'Belfer', 'Do Dobrowic przyjeżdża Paweł Zawadzki, nauczyciel języka polskiego, który na własną rękę podejmuje śledztwo w sprawie śmierci uczennicy miejscowej szkoły średniej. ', null, 2);
 insert into tv_series(title, original_title, `description`, average_score, category_id) values('PitBull', 'PitBull', 'Warszawscy policjanci wydziału zabójstw zmagają się z problemami codziennego życia i stołeczną przestępczością.', null, 6);
 insert into tv_series(title, original_title, `description`, average_score, category_id) values('Glina', 'Glina', 'Policjanci z Wydziału Zabójstw Komendy Stołecznej Policji w Warszawie mierzą się z zagadkami kryminalnymi i trudami życia prywatnego, jakie niesie ze sobą niebezpieczna praca.', null, 2);
+
+-- tv_seasons
+-- Wataha
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(1, 6, null, 1);
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(2, 6, null, 1);
+-- Pakt
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(1, 6, null, 2);
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(2, 6, null, 2);
+-- Belfer
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(1, 10, null, 3);
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(2, 8, null, 3);
+-- PitBull
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(1, 5, null, 4);
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(2, 12, null, 4);
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(3, 14, null, 4);
+-- Glina
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(1, 12, null, 5);
+insert into tv_seasons(season_number, number_of_episodes, average_score, tv_series_id) values(2, 13, null, 5);
