@@ -10,8 +10,7 @@ begin
     
     declare movie_cursor cursor for
     select m.title, m.release_date
-    from actor_movie am
-    join movies m on am.movie_id = m.movie_id
+    from actor_movie am join movies m on am.movie_id = m.movie_id
     where am.actor_id = actor_id
     order by m.release_date desc;
     
@@ -43,8 +42,7 @@ begin
     
     declare tv_series_cursor cursor for
     select tvs.title, tvs.release_date
-    from actor_tv_series atvs
-    join tv_series tvs on atvs.tv_series_id = tvs.tv_series_id
+    from actor_tv_series atvs join tv_series tvs on atvs.tv_series_id = tvs.tv_series_id
     where atvs.actor_id = actor_id
     order by tvs.release_date desc;
     
@@ -100,5 +98,33 @@ begin
     set output = concat(output, '\nSeriale:\n', @tv_series);
     
 	select output;
+end//
+DELIMITER ;
+
+drop procedure if exists get_actors_for_movie;
+DELIMITER //
+create procedure get_actors_for_movie(in movie_id int, inout output text)
+begin
+    declare `name`, surname varchar(30);
+    declare finished boolean default false;
+    
+    declare actors_cursor cursor for
+    select a.`name`, a.surname
+	from actors a join actor_movie am on a.actor_id = am.actor_id
+	where am.movie_id = movie_id
+	order by a.surname asc;
+    
+    declare continue handler for not found set finished = true;
+    
+    open actors_cursor;
+    get_actors: loop
+    fetch actors_cursor into `name`, surname;
+    
+    if finished = true then
+		leave get_actors;
+	end if;
+    set output = concat(output, `name`, ' ', surname, '\n');
+    end loop get_actors;
+    close actors_cursor;
 end//
 DELIMITER ;
