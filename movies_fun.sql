@@ -105,11 +105,11 @@ drop procedure if exists get_actors_for_movie;
 DELIMITER //
 create procedure get_actors_for_movie(in movie_id int, inout output text)
 begin
-    declare `name`, surname varchar(30);
+    declare `name`, surname, `role` varchar(30);
     declare finished boolean default false;
     
     declare actors_cursor cursor for
-    select a.`name`, a.surname
+    select a.`name`, a.surname, am.`role`
 	from actors a join actor_movie am on a.actor_id = am.actor_id
 	where am.movie_id = movie_id
 	order by a.surname asc;
@@ -118,12 +118,12 @@ begin
     
     open actors_cursor;
     get_actors: loop
-    fetch actors_cursor into `name`, surname;
+    fetch actors_cursor into `name`, surname, `role`;
     
     if finished = true then
 		leave get_actors;
 	end if;
-    set output = concat(output, `name`, ' ', surname, '\n');
+    set output = concat(output, `name`, ' ', surname, ' jako ', `role`, '\n');
     end loop get_actors;
     close actors_cursor;
 end//
