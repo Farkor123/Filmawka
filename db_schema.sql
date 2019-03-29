@@ -83,7 +83,8 @@ create table if not exists tv_seasons (
 
 create table if not exists tv_episodes (
 	tv_episode_id int not null auto_increment,
-    title varchar(50) not null,
+    episode_number tinyint not null,
+    title varchar(50),
     tv_season_id int not null,
     duration_in_minutes tinyint unsigned not null,
     average_score decimal(10, 8),
