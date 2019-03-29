@@ -40,11 +40,9 @@ begin
     get_movies: loop
     
     fetch movie_cursor into title, release_date;
-    
     if finished = true then
 		leave get_movies;
 	end if;
-    
     set output = concat(output, extract(year from release_date), ' ', title, '\n');
     
     end loop get_movies;
@@ -72,11 +70,9 @@ begin
     get_movies: loop
     
     fetch tv_series_cursor into title, release_date;
-    
     if finished = true then
 		leave get_movies;
 	end if;
-    
     set output = concat(output, extract(year from release_date), ' ', title, '\n');
     
     end loop get_movies;
@@ -104,17 +100,12 @@ begin
 		set output = concat(output, '\nData urodzenia: ', date_format(date_of_birth, '%e %M %Y'));
 		set output = concat(output, '\nData śmierci: ', date_format(date_of_death, '%e %M %Y'), ' (żył(a) ', timestampdiff(year, date_of_birth, date_of_death), ' lat)');
     end if;
-	
 	set output = concat(output, '\nOpis: ', summary);
-	
 	set @movies = '';
 	call get_movies_for_actor(actor_id, @movies);
-    
     set output = concat(output, '\n\nFilmy:\n', @movies);
-    
     set @tv_series = '';
     call get_tv_series_for_actor(actor_id, @tv_series);
-    
     set output = concat(output, '\nSeriale:\n', @tv_series);
     
 	select output;
@@ -146,5 +137,53 @@ begin
     set output = concat(output, `name`, ' ', surname, ' jako ', `role`, '\n');
     end loop get_actors;
     close actors_cursor;
+end//
+DELIMITER ;
+
+drop procedure if exists movie_info;
+DELIMITER //
+create procedure movie_info(in movie_id int)
+begin
+	declare title, original_title varchar(30);
+    declare director_id, category_id int;
+    declare `description`, output text;
+    declare release_date date;
+    declare is_released boolean;
+    declare average_score decimal(10, 8);
+    
+    if exists(select * from movies m where m.movie_id = movie_id) then
+		select m.title, m.original_title, m.director_id, m.category_id, m.`description`, m.release_date, m.is_released, m.average_score
+		from movies m
+		where m.movie_id = movie_id
+		into title, original_title, director_id, category_id, `description`, release_date, is_released, average_score;
+		
+        set output = concat('Film: ', title);
+        
+		if strcmp(title, original_title) = 0 then
+			set output = concat(output, ' (oryginalny tytuł: ', original_title, ')');
+		end if;
+        if is_released = 1 then
+			set output = concat(output, '\nData premiery: ');
+        else
+			set output = concat(output, '\nPlanowana data premiery: ');
+        end if;
+        set output = concat(output, date_format(release_date, '%e %M %Y'));
+        set output = concat(output, '\nReżyser: ', get_director(director_id));
+        set output = concat(output, '\nKategoria: ', get_category(category_id));
+        set output = concat(output, '\nOcena: ');
+        if average_score is null then
+			set output = concat(output, 'nikt jeszcze nie ocenił tego filmu');
+        else
+			set output = concat(output, round(average_score, 2));
+        end if;
+        set output = concat(output, '\n\nOpis: ', `description`);
+        set @actors = '';
+        call get_actors_for_movie(movie_id, @actors);
+        set output = concat(output, '\n\nAktorzy:\n', @actors);
+        
+		select output;
+    else
+		select 'Nie znaleziono filmu';
+    end if;
 end//
 DELIMITER ;
