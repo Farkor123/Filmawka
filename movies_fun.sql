@@ -10,6 +10,16 @@ begin
 end//
 DELIMITER ;
 
+drop function if exists get_director;
+DELIMITER //
+create function get_director(director_id int) returns varchar(61) reads sql data
+begin
+	declare director_info varchar(61);
+    select concat(d.`name`, ' ', d.surname) from directors d where d.director_id = director_id into director_info;
+    return director_info;
+end//
+DELIMITER ;
+
 drop procedure if exists get_movies_for_actor;
 DELIMITER //
 create procedure get_movies_for_actor(in actor_id int, inout output text)
