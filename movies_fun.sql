@@ -1,5 +1,15 @@
 use filmawka;
 
+drop function if exists get_category;
+DELIMITER //
+create function get_category(category_id int) returns varchar(30) reads sql data
+begin
+	declare category_name varchar(30);
+    select c.`name` from categories c where c.category_id = category_id into category_name;
+    return category_name;
+end//
+DELIMITER ;
+
 drop procedure if exists get_movies_for_actor;
 DELIMITER //
 create procedure get_movies_for_actor(in actor_id int, inout output text)
