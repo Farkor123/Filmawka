@@ -122,7 +122,8 @@ create table if not exists movie_ratings (
     rating_date datetime not null default now(),
     primary key(movie_rating_id),
     foreign key(user_id) references users(user_id),
-    foreign key(movie_id) references movies(movie_id)
+    foreign key(movie_id) references movies(movie_id),
+    unique key UserCanRateMovieOnlyOnce(user_id, movie_id)
 );
 
 create table if not exists tv_series_ratings (
