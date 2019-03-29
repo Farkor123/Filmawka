@@ -322,3 +322,198 @@ insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes
 insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(11, null, 11, 45, null);
 insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(12, null, 11, 45, null);
 insert into tv_episodes(episode_number, title, tv_season_id, duration_in_minutes, average_score) values(13, null, 11, 45, null);
+
+-- actor_movie
+-- Pulp Fiction
+insert into actor_movie(movie_id, actor_id) values (1, 1);
+insert into actor_movie(movie_id, actor_id) values (1, 2);
+insert into actor_movie(movie_id, actor_id) values (1, 3);
+insert into actor_movie(movie_id, actor_id) values (1, 4);
+insert into actor_movie(movie_id, actor_id) values (1, 5);
+insert into actor_movie(movie_id, actor_id) values (1, 6);
+insert into actor_movie(movie_id, actor_id) values (1, 7);
+insert into actor_movie(movie_id, actor_id) values (1, 8);
+-- Kill Bill
+insert into actor_movie(movie_id, actor_id) values (2, 3);
+insert into actor_movie(movie_id, actor_id) values (2, 9);
+insert into actor_movie(movie_id, actor_id) values (2, 10);
+insert into actor_movie(movie_id, actor_id) values (2, 11);
+insert into actor_movie(movie_id, actor_id) values (2, 12);
+insert into actor_movie(movie_id, actor_id) values (2, 13);
+insert into actor_movie(movie_id, actor_id) values (2, 14);
+insert into actor_movie(movie_id, actor_id) values (2, 3);
+-- Kill Bill 2
+insert into actor_movie(movie_id, actor_id) values (3, 3);
+insert into actor_movie(movie_id, actor_id) values (3, 13);
+insert into actor_movie(movie_id, actor_id) values (3, 11);
+insert into actor_movie(movie_id, actor_id) values (3, 9);
+insert into actor_movie(movie_id, actor_id) values (3, 14);
+-- Bękarty wojny
+insert into actor_movie(movie_id, actor_id) values (4, 15);
+insert into actor_movie(movie_id, actor_id) values (4, 16);
+insert into actor_movie(movie_id, actor_id) values (4, 17);
+insert into actor_movie(movie_id, actor_id) values (4, 18);
+insert into actor_movie(movie_id, actor_id) values (4, 19);
+insert into actor_movie(movie_id, actor_id) values (4, 20);
+insert into actor_movie(movie_id, actor_id) values (4, 21);
+insert into actor_movie(movie_id, actor_id) values (4, 22);
+-- Django
+insert into actor_movie(movie_id, actor_id) values (5, 23);
+insert into actor_movie(movie_id, actor_id) values (5, 17);
+insert into actor_movie(movie_id, actor_id) values (5, 24);
+insert into actor_movie(movie_id, actor_id) values (5, 25);
+insert into actor_movie(movie_id, actor_id) values (5, 2);
+insert into actor_movie(movie_id, actor_id) values (5, 26);
+-- Nienawistna ósemka
+insert into actor_movie(movie_id, actor_id) values (6, 2);
+insert into actor_movie(movie_id, actor_id) values (6, 27);
+insert into actor_movie(movie_id, actor_id) values (6, 28);
+insert into actor_movie(movie_id, actor_id) values (6, 26);
+insert into actor_movie(movie_id, actor_id) values (6, 29);
+insert into actor_movie(movie_id, actor_id) values (6, 7);
+insert into actor_movie(movie_id, actor_id) values (6, 13);
+insert into actor_movie(movie_id, actor_id) values (6, 30);
+-- Incepcja
+insert into actor_movie(movie_id, actor_id) values (7, 24);
+insert into actor_movie(movie_id, actor_id) values (7, 31);
+insert into actor_movie(movie_id, actor_id) values (7, 32);
+insert into actor_movie(movie_id, actor_id) values (7, 33);
+insert into actor_movie(movie_id, actor_id) values (7, 34);
+insert into actor_movie(movie_id, actor_id) values (7, 35);
+insert into actor_movie(movie_id, actor_id) values (7, 36);
+-- Infiltracja
+insert into actor_movie(movie_id, actor_id) values (8, 24);
+insert into actor_movie(movie_id, actor_id) values (8, 37);
+insert into actor_movie(movie_id, actor_id) values (8, 38);
+insert into actor_movie(movie_id, actor_id) values (8, 39);
+insert into actor_movie(movie_id, actor_id) values (8, 40);
+insert into actor_movie(movie_id, actor_id) values (8, 41);
+-- Gladiator
+insert into actor_movie(movie_id, actor_id) values (9, 42);
+insert into actor_movie(movie_id, actor_id) values (9, 43);
+insert into actor_movie(movie_id, actor_id) values (9, 44);
+insert into actor_movie(movie_id, actor_id) values (9, 45);
+insert into actor_movie(movie_id, actor_id) values (9, 46);
+insert into actor_movie(movie_id, actor_id) values (9, 47);
+-- Ostatni samuraj
+insert into actor_movie(movie_id, actor_id) values (10, 48);
+insert into actor_movie(movie_id, actor_id) values (10, 34);
+insert into actor_movie(movie_id, actor_id) values (10, 49);
+insert into actor_movie(movie_id, actor_id) values (10, 50);
+insert into actor_movie(movie_id, actor_id) values (10, 51);
+-- Patrtiota
+insert into actor_movie(movie_id, actor_id) values (11, 52);
+insert into actor_movie(movie_id, actor_id) values (11, 53);
+insert into actor_movie(movie_id, actor_id) values (11, 54);
+insert into actor_movie(movie_id, actor_id) values (11, 55);
+-- Kiler
+insert into actor_movie(movie_id, actor_id) values (12, 60);
+insert into actor_movie(movie_id, actor_id) values (12, 61);
+insert into actor_movie(movie_id, actor_id) values (12, 62);
+insert into actor_movie(movie_id, actor_id) values (12, 56);
+insert into actor_movie(movie_id, actor_id) values (12, 57);
+insert into actor_movie(movie_id, actor_id) values (12, 58);
+insert into actor_movie(movie_id, actor_id) values (12, 59);
+-- Kiler-ów 2-óch
+insert into actor_movie(movie_id, actor_id) values (13, 60);
+insert into actor_movie(movie_id, actor_id) values (13, 57);
+insert into actor_movie(movie_id, actor_id) values (13, 62);
+insert into actor_movie(movie_id, actor_id) values (13, 61);
+insert into actor_movie(movie_id, actor_id) values (13, 56);
+insert into actor_movie(movie_id, actor_id) values (13, 58);
+insert into actor_movie(movie_id, actor_id) values (13, 63);
+insert into actor_movie(movie_id, actor_id) values (13, 64);
+-- Szybcy i wściekli
+insert into actor_movie(movie_id, actor_id) values (14, 65);
+insert into actor_movie(movie_id, actor_id) values (14, 66);
+insert into actor_movie(movie_id, actor_id) values (14, 67);
+insert into actor_movie(movie_id, actor_id) values (14, 68);
+-- Za szybcy, za wściekli
+insert into actor_movie(movie_id, actor_id) values (15, 66);
+insert into actor_movie(movie_id, actor_id) values (15, 69);
+insert into actor_movie(movie_id, actor_id) values (15, 70);
+insert into actor_movie(movie_id, actor_id) values (15, 71);
+insert into actor_movie(movie_id, actor_id) values (15, 72);
+-- Szybcy i wściekli: Tokio Drift
+insert into actor_movie(movie_id, actor_id) values (16, 73);
+insert into actor_movie(movie_id, actor_id) values (16, 74);
+insert into actor_movie(movie_id, actor_id) values (16, 75);
+insert into actor_movie(movie_id, actor_id) values (16, 76);
+insert into actor_movie(movie_id, actor_id) values (16, 77);
+-- Szybko i wściekle
+insert into actor_movie(movie_id, actor_id) values (17, 65);
+insert into actor_movie(movie_id, actor_id) values (17, 66);
+insert into actor_movie(movie_id, actor_id) values (17, 67);
+insert into actor_movie(movie_id, actor_id) values (17, 68);
+insert into actor_movie(movie_id, actor_id) values (17, 78);
+insert into actor_movie(movie_id, actor_id) values (17, 79);
+insert into actor_movie(movie_id, actor_id) values (17, 82);
+-- Szybcy i wściekli 5
+insert into actor_movie(movie_id, actor_id) values (18, 65);
+insert into actor_movie(movie_id, actor_id) values (18, 66);
+insert into actor_movie(movie_id, actor_id) values (18, 67);
+insert into actor_movie(movie_id, actor_id) values (18, 69);
+insert into actor_movie(movie_id, actor_id) values (18, 80);
+insert into actor_movie(movie_id, actor_id) values (18, 81);
+insert into actor_movie(movie_id, actor_id) values (18, 76);
+-- Szybcy i wściekli 6
+insert into actor_movie(movie_id, actor_id) values (19, 65);
+insert into actor_movie(movie_id, actor_id) values (19, 66);
+insert into actor_movie(movie_id, actor_id) values (19, 80);
+insert into actor_movie(movie_id, actor_id) values (19, 67);
+insert into actor_movie(movie_id, actor_id) values (19, 68);
+insert into actor_movie(movie_id, actor_id) values (19, 69);
+insert into actor_movie(movie_id, actor_id) values (19, 76);
+insert into actor_movie(movie_id, actor_id) values (19, 82);
+-- Szybcy i wściekli 7
+insert into actor_movie(movie_id, actor_id) values (20, 65);
+insert into actor_movie(movie_id, actor_id) values (20, 66);
+insert into actor_movie(movie_id, actor_id) values (20, 83);
+insert into actor_movie(movie_id, actor_id) values (20, 68);
+insert into actor_movie(movie_id, actor_id) values (20, 67);
+insert into actor_movie(movie_id, actor_id) values (20, 69);
+insert into actor_movie(movie_id, actor_id) values (20, 80);
+-- Szybcy i wściekli 8
+insert into actor_movie(movie_id, actor_id) values (21, 65);
+insert into actor_movie(movie_id, actor_id) values (21, 83);
+insert into actor_movie(movie_id, actor_id) values (21, 80);
+insert into actor_movie(movie_id, actor_id) values (21, 68);
+insert into actor_movie(movie_id, actor_id) values (21, 69);
+-- Iron Man
+insert into actor_movie(movie_id, actor_id) values (22, 85);
+insert into actor_movie(movie_id, actor_id) values (22, 86);
+insert into actor_movie(movie_id, actor_id) values (22, 87);
+insert into actor_movie(movie_id, actor_id) values (22, 88);
+insert into actor_movie(movie_id, actor_id) values (22, 89);
+-- Iron Man 2
+insert into actor_movie(movie_id, actor_id) values (23, 85);
+insert into actor_movie(movie_id, actor_id) values (23, 86);
+insert into actor_movie(movie_id, actor_id) values (23, 84);
+insert into actor_movie(movie_id, actor_id) values (23, 92);
+insert into actor_movie(movie_id, actor_id) values (23, 91);
+insert into actor_movie(movie_id, actor_id) values (23, 90);
+insert into actor_movie(movie_id, actor_id) values (23, 2);
+-- Iron Man 3
+insert into actor_movie(movie_id, actor_id) values (24, 85);
+insert into actor_movie(movie_id, actor_id) values (24, 86);
+insert into actor_movie(movie_id, actor_id) values (24, 92);
+insert into actor_movie(movie_id, actor_id) values (24, 95);
+insert into actor_movie(movie_id, actor_id) values (24, 93);
+insert into actor_movie(movie_id, actor_id) values (24, 94);
+-- Thor
+insert into actor_movie(movie_id, actor_id) values (25, 96);
+insert into actor_movie(movie_id, actor_id) values (25, 97);
+insert into actor_movie(movie_id, actor_id) values (25, 98);
+insert into actor_movie(movie_id, actor_id) values (25, 99);
+insert into actor_movie(movie_id, actor_id) values (25, 90);
+insert into actor_movie(movie_id, actor_id) values (25, 101);
+-- Thor: Mroczny świat
+insert into actor_movie(movie_id, actor_id) values (26, 96);
+insert into actor_movie(movie_id, actor_id) values (26, 97);
+insert into actor_movie(movie_id, actor_id) values (26, 98);
+insert into actor_movie(movie_id, actor_id) values (26, 99);
+-- Thor: Ragnarok
+insert into actor_movie(movie_id, actor_id) values (27, 96);
+insert into actor_movie(movie_id, actor_id) values (27, 98);
+insert into actor_movie(movie_id, actor_id) values (27, 100);
+insert into actor_movie(movie_id, actor_id) values (27, 101);
