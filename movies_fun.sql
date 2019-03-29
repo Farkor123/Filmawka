@@ -33,6 +33,39 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists get_tv_series_for_actor;
+DELIMITER //
+create procedure get_tv_series_for_actor(in actor_id int, inout output text)
+begin
+	declare title varchar(50);
+    declare release_date date;
+    declare finished boolean default false;
+    
+    declare tv_series_cursor cursor for
+    select tvs.title, tvs.release_date
+    from actor_tv_series atvs
+    join tv_series tvs on atvs.tv_series_id = tvs.tv_series_id
+    where atvs.actor_id = actor_id
+    order by tvs.release_date desc;
+    
+    declare continue handler for not found set finished = true;
+    
+    open tv_series_cursor;
+    get_movies: loop
+    
+    fetch tv_series_cursor into title, release_date;
+    
+    if finished = true then
+		leave get_movies;
+	end if;
+    
+    set output = concat(output, extract(year from release_date), ' ', title, '\n');
+    
+    end loop get_movies;
+    close tv_series_cursor;
+end//
+DELIMITER ;
+
 drop procedure if exists actor_info;
 DELIMITER //
 create procedure actor_info(in actor_id int)
