@@ -196,3 +196,13 @@ begin
     insert into movie_ratings(user_id, movie_id, rating) values(user_id, movie_id, rating);
 end//
 DELIMITER ;
+
+drop trigger if exists add_movie_rating;
+DELIMITER //
+create trigger add_movie_rating after insert on movie_ratings for each row
+begin
+	declare avg_score decimal(10, 8);
+    select avg(rating) from movie_ratings where movie_id = new.movie_id into avg_score;
+    update movies set average_score = avg_score where movie_id = new.movie_id;
+end//
+DELIMITER ;
