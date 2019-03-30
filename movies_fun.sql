@@ -1,5 +1,6 @@
 use filmawka;
 
+-- functions
 drop function if exists get_category;
 DELIMITER //
 create function get_category(category_id int) returns varchar(30) reads sql data
@@ -86,34 +87,6 @@ begin
 end//
 DELIMITER ;
 
-drop procedure if exists actor_info;
-DELIMITER //
-create procedure actor_info(in actor_id int)
-begin
-	declare a_name, a_surname varchar(30);
-    declare date_of_birth, date_of_death date;
-	declare output, summary text;
-	
-	select a.`name`, a.surname, a.date_of_birth, a.date_of_death, a.summary
-    from actors a
-    where a.actor_id = actor_id
-    into a_name , a_surname , date_of_birth , date_of_death , summary;
-	
-	set output = concat('Aktor: ', a_name, ' ', a_surname);
-	if date_of_death is null then
-		set output = concat(output, '\nData urodzenia: ', date_format(date_of_birth, '%e %M %Y'), ' (', timestampdiff(year, date_of_birth, curdate()), ' lat)');
-	else
-		set output = concat(output, '\nData urodzenia: ', date_format(date_of_birth, '%e %M %Y'));
-		set output = concat(output, '\nData śmierci: ', date_format(date_of_death, '%e %M %Y'), ' (żył(a) ', timestampdiff(year, date_of_birth, date_of_death), ' lat)');
-    end if;
-	set output = concat(output, '\nOpis: ', summary);
-    set output = concat(output, '\n\nFilmy:\n', get_movies_for_actor(actor_id));
-    set output = concat(output, '\nSeriale:\n', get_tv_series_for_actor(actor_id));
-    
-	select output;
-end//
-DELIMITER ;
-
 drop function if exists get_actors_for_movie;
 DELIMITER //
 create function get_actors_for_movie(movie_id int) returns text reads sql data
@@ -142,6 +115,36 @@ begin
     close actors_cursor;
     
     return output;
+end//
+DELIMITER ;
+
+-- procedures
+
+drop procedure if exists actor_info;
+DELIMITER //
+create procedure actor_info(in actor_id int)
+begin
+	declare a_name, a_surname varchar(30);
+    declare date_of_birth, date_of_death date;
+	declare output, summary text;
+	
+	select a.`name`, a.surname, a.date_of_birth, a.date_of_death, a.summary
+    from actors a
+    where a.actor_id = actor_id
+    into a_name , a_surname , date_of_birth , date_of_death , summary;
+	
+	set output = concat('Aktor: ', a_name, ' ', a_surname);
+	if date_of_death is null then
+		set output = concat(output, '\nData urodzenia: ', date_format(date_of_birth, '%e %M %Y'), ' (', timestampdiff(year, date_of_birth, curdate()), ' lat)');
+	else
+		set output = concat(output, '\nData urodzenia: ', date_format(date_of_birth, '%e %M %Y'));
+		set output = concat(output, '\nData śmierci: ', date_format(date_of_death, '%e %M %Y'), ' (żył(a) ', timestampdiff(year, date_of_birth, date_of_death), ' lat)');
+    end if;
+	set output = concat(output, '\nOpis: ', summary);
+    set output = concat(output, '\n\nFilmy:\n', get_movies_for_actor(actor_id));
+    set output = concat(output, '\nSeriale:\n', get_tv_series_for_actor(actor_id));
+    
+	select output;
 end//
 DELIMITER ;
 
@@ -227,6 +230,7 @@ begin
 end//
 DELIMITER ;
 
+-- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
 create trigger insert_check_movie_rating before insert on movie_ratings for each row
@@ -240,66 +244,6 @@ DELIMITER ;
 drop trigger if exists update_check_movie_rating;
 DELIMITER //
 create trigger update_check_movie_rating before update on movie_ratings for each row
-begin
-	if new.rating < 1 or new.rating > 10 then
-		signal sqlstate '10001';
-    end if;
-end//
-DELIMITER ;
-
-drop trigger if exists insert_check_tv_series_rating;
-DELIMITER //
-create trigger insert_check_tv_series_rating before insert on tv_series_ratings for each row
-begin
-	if new.rating < 1 or new.rating > 10 then
-		signal sqlstate '10001';
-    end if;
-end//
-DELIMITER ;
-
-drop trigger if exists update_check_tv_series_rating;
-DELIMITER //
-create trigger update_check_tv_series_rating before update on tv_series_ratings for each row
-begin
-	if new.rating < 1 or new.rating > 10 then
-		signal sqlstate '10001';
-    end if;
-end//
-DELIMITER ;
-
-drop trigger if exists insert_check_tv_season_rating;
-DELIMITER //
-create trigger insert_check_tv_season_rating before insert on tv_season_ratings for each row
-begin
-	if new.rating < 1 or new.rating > 10 then
-		signal sqlstate '10001';
-    end if;
-end//
-DELIMITER ;
-
-drop trigger if exists update_check_tv_season_rating;
-DELIMITER //
-create trigger update_check_tv_season_rating before update on tv_season_ratings for each row
-begin
-	if new.rating < 1 or new.rating > 10 then
-		signal sqlstate '10001';
-    end if;
-end//
-DELIMITER ;
-
-drop trigger if exists insert_check_tv_episode_rating;
-DELIMITER //
-create trigger insert_check_tv_episode_rating before insert on tv_episode_ratings for each row
-begin
-	if new.rating < 1 or new.rating > 10 then
-		signal sqlstate '10001';
-    end if;
-end//
-DELIMITER ;
-
-drop trigger if exists update_check_tv_episode_rating;
-DELIMITER //
-create trigger update_check_tv_episode_rating before update on tv_episode_ratings for each row
 begin
 	if new.rating < 1 or new.rating > 10 then
 		signal sqlstate '10001';
@@ -334,5 +278,68 @@ begin
 	declare avg_score decimal(10, 8);
     select avg(rating) from movie_ratings where movie_id = old.movie_id into avg_score;
     update movies set average_score = avg_score where movie_id = old.movie_id;
+end//
+DELIMITER ;
+
+-- tv_series_ratings triggers
+drop trigger if exists insert_check_tv_series_rating;
+DELIMITER //
+create trigger insert_check_tv_series_rating before insert on tv_series_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+drop trigger if exists update_check_tv_series_rating;
+DELIMITER //
+create trigger update_check_tv_series_rating before update on tv_series_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+-- tv_season_ratings triggers
+drop trigger if exists insert_check_tv_season_rating;
+DELIMITER //
+create trigger insert_check_tv_season_rating before insert on tv_season_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+drop trigger if exists update_check_tv_season_rating;
+DELIMITER //
+create trigger update_check_tv_season_rating before update on tv_season_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+-- tv_episode_ratings triggers
+drop trigger if exists insert_check_tv_episode_rating;
+DELIMITER //
+create trigger insert_check_tv_episode_rating before insert on tv_episode_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+drop trigger if exists update_check_tv_episode_rating;
+DELIMITER //
+create trigger update_check_tv_episode_rating before update on tv_episode_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
 end//
 DELIMITER ;
