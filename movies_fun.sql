@@ -227,7 +227,67 @@ begin
 		signal sqlstate '10001';
     end if;
 end//
-DELIMITER ;	
+DELIMITER ;
+
+drop trigger if exists insert_check_tv_series_rating;
+DELIMITER //
+create trigger insert_check_tv_series_rating before insert on tv_series_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+drop trigger if exists update_check_tv_series_rating;
+DELIMITER //
+create trigger update_check_tv_series_rating before update on tv_series_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+drop trigger if exists insert_check_tv_season_rating;
+DELIMITER //
+create trigger insert_check_tv_season_rating before insert on tv_season_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+drop trigger if exists update_check_tv_season_rating;
+DELIMITER //
+create trigger update_check_tv_season_rating before update on tv_season_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+drop trigger if exists insert_check_tv_episode_rating;
+DELIMITER //
+create trigger insert_check_tv_episode_rating before insert on tv_episode_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+drop trigger if exists update_check_tv_episode_rating;
+DELIMITER //
+create trigger update_check_tv_episode_rating before update on tv_episode_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
 
 drop trigger if exists add_movie_rating;
 DELIMITER //
