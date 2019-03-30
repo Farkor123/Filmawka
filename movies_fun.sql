@@ -248,6 +248,24 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists rate_tv_episode;
+DELIMITER //
+create procedure rate_tv_episode(in user_id int, in tv_episode_id int, in rating tinyint)
+begin
+	declare bad_rating condition for sqlstate '10001';
+	declare exit handler for bad_rating
+    select 'Ocena powinna być z zakresu <1, 10>';
+    
+	-- 1062 is error number for duplicate entry for key (when user tries to rate the same movie more than once)
+	declare continue handler for 1062
+    update tv_episode_ratings tver
+    set tver.rating = rating, rating_date = now()
+    where tver.user_id = user_id and tver.tv_episode_id = tv_episode_id;
+    
+    insert into tv_episode_ratings(user_id, tv_episode_id, rating) values(user_id, tv_episode_id, rating);
+end//
+DELIMITER ;
+
 -- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
