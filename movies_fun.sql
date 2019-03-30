@@ -195,14 +195,39 @@ drop procedure if exists rate_movie;
 DELIMITER //
 create procedure rate_movie(in user_id int, in movie_id int, in rating tinyint)
 begin
+	declare bad_rating condition for sqlstate '10001';
+	declare exit handler for bad_rating
+    select 'Ocena powinna być z zakresu <1, 10>';
+    
 	-- 1062 is error number for duplicate entry for key (when user tries to rate the same movie more than once)
-	declare exit handler for 1062
+	declare continue handler for 1062
     update movie_ratings mr
     set mr.rating = rating, rating_date = now()
     where mr.user_id = user_id and mr.movie_id = movie_id;
+    
     insert into movie_ratings(user_id, movie_id, rating) values(user_id, movie_id, rating);
 end//
 DELIMITER ;
+
+drop trigger if exists insert_check_movie_rating;
+DELIMITER //
+create trigger insert_check_movie_rating before insert on movie_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;
+
+drop trigger if exists update_check_movie_rating;
+DELIMITER //
+create trigger update_check_movie_rating before update on movie_ratings for each row
+begin
+	if new.rating < 1 or new.rating > 10 then
+		signal sqlstate '10001';
+    end if;
+end//
+DELIMITER ;	
 
 drop trigger if exists add_movie_rating;
 DELIMITER //
