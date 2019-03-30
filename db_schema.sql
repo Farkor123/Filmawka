@@ -118,7 +118,7 @@ create table if not exists movie_ratings (
 	movie_rating_id int not null auto_increment,
     user_id int not null,
     movie_id int not null,
-    rating tinyint check (rating >= 1 and rating <= 10),
+    rating tinyint,
     rating_date datetime not null default now(),
     primary key(movie_rating_id),
     foreign key(user_id) references users(user_id),
@@ -130,33 +130,36 @@ create table if not exists tv_series_ratings (
 	tv_series_rating_id int not null auto_increment,
     user_id int not null,
     tv_series_id int not null,
-    rating tinyint check (rating >= 1 and rating <= 10),
+    rating tinyint,
     rating_date datetime not null default now(),
     primary key(tv_series_rating_id),
     foreign key(user_id) references users(user_id),
-    foreign key(tv_series_id) references tv_series(tv_series_id)
+    foreign key(tv_series_id) references tv_series(tv_series_id),
+    unique key UserCanRateTVSeriesOnlyOnce(user_id, tv_series_id)
 );
 
 create table if not exists tv_season_ratings (
 	tv_season_rating_id int not null auto_increment,
     user_id int not null,
     tv_season_id int not null,
-    rating tinyint check (rating >= 1 and rating <= 10),
+    rating tinyint,
     rating_date datetime not null default now(),
     primary key(tv_season_rating_id),
     foreign key(user_id) references users(user_id),
-    foreign key(tv_season_id) references tv_seasons(tv_season_id)
+    foreign key(tv_season_id) references tv_seasons(tv_season_id),
+    unique key UserCanRateTVSeasonOnlyOnce(user_id, tv_season_id)
 );
 
 create table if not exists tv_episode_ratings (
 	tv_episode_rating_id int not null auto_increment,
     user_id int not null,
     tv_episode_id int not null,
-    rating tinyint check (rating >= 1 and rating <= 10),
+    rating tinyint,
     rating_date datetime not null default now(),
     primary key(tv_episode_rating_id),
     foreign key(user_id) references users(user_id),
-    foreign key(tv_episode_id) references tv_episodes(tv_episode_id)
+    foreign key(tv_episode_id) references tv_episodes(tv_episode_id),
+    unique key UserCanRateTVEpisodeOnlyOnce(user_id, tv_episode_id)
 );
 
 create table if not exists comments (
@@ -169,6 +172,5 @@ create table if not exists comments (
     primary key(comment_id),
     foreign key(movie_id) references movies(movie_id),
     foreign key(tv_series_id) references tv_series(tv_series_id),
-    foreign key(user_id) references users(user_id),
-    constraint MovieIdOrTvSeriesIdNotNull check (movie_id is not null or tv_series_id is not null)
+    foreign key(user_id) references users(user_id)
 )
