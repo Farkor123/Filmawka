@@ -14,9 +14,11 @@ create table if not exists users (
 );
 
 create table if not exists account_settings (
-        account_settings_id int not null auto_increment,
+    account_settings_id int not null auto_increment,
     user_id int not null,
     night_mode tinyint(1) not null,
+	timezone varchar(30) not null,
+	is_newsletter tinyint(1) not null,
     foreign key(user_id) references users(user_id),
     primary key(account_settings_id)
 );
@@ -33,7 +35,6 @@ create table if not exists conversation (
     conversation_id int not null auto_increment,
     user_one int not null,
     user_two int not null,
-    ip varchar(30) default null,
     time int(11) default null,
     foreign key(user_one) references users(user_id),
     foreign key(user_two) references users(user_id),
@@ -44,7 +45,6 @@ create table if not exists conversation_reply (
     conversation_reply_id int not null auto_increment,
     reply text,
     user_id int not null,
-    ip varchar(30) not null,
     time int(11) not null,
     conversation_id int not null,
     foreign key(user_id) references users(user_id),
