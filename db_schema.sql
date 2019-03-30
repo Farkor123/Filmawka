@@ -4,11 +4,21 @@ use filmawka;
 
 create table if not exists users (
 	user_id int not null auto_increment,
-    `name` varchar(20) not null,
-    surname varchar(20) not null,
+    first_name varchar(20) not null,
+    last_name varchar(20) not null,
+    create_date date not null,
+    is_active tinyint(1) not null,
     nick varchar(50) not null,
     email varchar(50) not null,
     primary key(user_id)
+);
+
+create table if not exists account_settings (
+        account_settings_id int not null auto_increment,
+    user_id int not null,
+    night_mode tinyint(1) not null,
+    foreign key(user_id) references users(user_id),
+    primary key(account_settings_id)
 );
 
 create table if not exists passwords (
@@ -17,6 +27,29 @@ create table if not exists passwords (
     password_hash binary(64) not null,
     foreign key(user_id) references users(user_id),
     primary key(password_id)
+);
+
+create table if not exists conversation (
+    conversation_id int not null auto_increment,
+    user_one int not null,
+    user_two int not null,
+    ip varchar(30) default null,
+    time int(11) default null,
+    foreign key(user_one) references users(user_id),
+    foreign key(user_two) references users(user_id),
+    primary_key(conversation_id)
+);
+
+create table if not exists conversation_reply (
+    conversation_reply_id int not null auto_increment,
+    reply text,
+    user_id int not null,
+    ip varchar(30) not null,
+    time int(11) not null,
+    conversation_id int not null,
+    foreign key(user_id) references users(user_id),
+    foreign key(conversation_id) references conversation(conversation_id),
+    primary_key(conversation_reply_id)
 );
 
 create table if not exists actors (
