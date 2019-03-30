@@ -302,6 +302,36 @@ begin
 end//
 DELIMITER ;
 
+drop trigger if exists add_tv_series_rating;
+DELIMITER //
+create trigger add_tv_series_rating after insert on tv_series_ratings for each row
+begin
+	declare avg_score decimal(10, 8);
+    select avg(rating) from tv_series_ratings where tv_series_id = new.tv_series_id into avg_score;
+    update tv_series set average_score = avg_score where tv_series_id = new.tv_series_id;
+end//
+DELIMITER ;
+
+drop trigger if exists update_tv_series_rating;
+DELIMITER //
+create trigger update_tv_series_rating after update on tv_series_ratings for each row
+begin
+	declare avg_score decimal(10, 8);
+    select avg(rating) from tv_series_ratings where tv_series_id = old.tv_series_id into avg_score;
+    update tv_series set average_score = avg_score where tv_series_id = old.tv_series_id;
+end//
+DELIMITER ;
+
+drop trigger if exists delete_tv_series_rating;
+DELIMITER //
+create trigger delete_tv_series_rating after delete on tv_series_ratings for each row
+begin
+	declare avg_score decimal(10, 8);
+    select avg(rating) from tv_series_ratings where tv_series_id = old.tv_series_id into avg_score;
+    update tv_series set average_score = avg_score where tv_series_id = old.tv_series_id;
+end//
+DELIMITER ;
+
 -- tv_season_ratings triggers
 drop trigger if exists insert_check_tv_season_rating;
 DELIMITER //
