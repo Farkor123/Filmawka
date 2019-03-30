@@ -192,7 +192,11 @@ drop procedure if exists rate_movie;
 DELIMITER //
 create procedure rate_movie(in user_id int, in movie_id int, in rating tinyint)
 begin
-	declare exit handler for 1062 select 'Film może być oceniony nie więcej niż raz!';
+	-- 1062 is error number for duplicate entry for key (when user tries to rate the same movie more than once)
+	declare exit handler for 1062
+    update movie_ratings mr
+    set mr.rating = rating, rating_date = now()
+    where mr.user_id = user_id and mr.movie_id = movie_id;
     insert into movie_ratings(user_id, movie_id, rating) values(user_id, movie_id, rating);
 end//
 DELIMITER ;
