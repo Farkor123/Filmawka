@@ -119,7 +119,6 @@ end//
 DELIMITER ;
 
 -- procedures
-
 drop procedure if exists actor_info;
 DELIMITER //
 create procedure actor_info(in actor_id int)
@@ -263,6 +262,19 @@ begin
     where tver.user_id = user_id and tver.tv_episode_id = tv_episode_id;
     
     insert into tv_episode_ratings(user_id, tv_episode_id, rating) values(user_id, tv_episode_id, rating);
+end//
+DELIMITER ;
+
+drop procedure if exists search_movies;
+DELIMITER //
+create procedure search_movies(in user_query varchar(50))
+begin
+	set user_query = concat('%', user_query, '%');
+    
+    select m.title, m.original_title, m.release_date
+    from movies m
+    where m.title like user_query or m.original_title like user_query
+    order by m.release_date desc;
 end//
 DELIMITER ;
 
