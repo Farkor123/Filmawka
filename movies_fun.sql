@@ -226,7 +226,25 @@ begin
     set tvsr.rating = rating, rating_date = now()
     where tvsr.user_id = user_id and tvsr.tv_series_id = tv_series_id;
     
-    insert into tv_series_ratings(user_id, tv_series_id, rating) values (user_id, tv_series_id, rating);
+    insert into tv_series_ratings(user_id, tv_series_id, rating) values(user_id, tv_series_id, rating);
+end//
+DELIMITER ;
+
+drop procedure if exists rate_tv_season;
+DELIMITER //
+create procedure rate_tv_season(in user_id int, in tv_season_id int, in rating tinyint)
+begin
+	declare bad_rating condition for sqlstate '10001';
+	declare exit handler for bad_rating
+    select 'Ocena powinna być z zakresu <1, 10>';
+    
+	-- 1062 is error number for duplicate entry for key (when user tries to rate the same movie more than once)
+	declare continue handler for 1062
+    update tv_season_ratings tvsr
+    set tvsr.rating = rating, rating_date = now()
+    where tvsr.user_id = user_id and tvsr.tv_season_id = tv_season_id;
+    
+    insert into tv_season_ratings(user_id, tv_season_id, rating) values(user_id, tv_season_id, rating);
 end//
 DELIMITER ;
 
