@@ -20,13 +20,14 @@ begin
 end//
 DELIMITER ;
 
-drop procedure if exists get_movies_for_actor;
+drop function if exists get_movies_for_actor;
 DELIMITER //
-create procedure get_movies_for_actor(in actor_id int, inout output text)
+create function get_movies_for_actor(actor_id int) returns text reads sql data
 begin
 	declare title varchar(50);
     declare release_date date;
     declare finished boolean default false;
+    declare output text default '';
     
     declare movie_cursor cursor for
     select m.title, m.release_date
@@ -47,16 +48,19 @@ begin
     
     end loop get_movies;
     close movie_cursor;
+    
+    return output;
 end//
 DELIMITER ;
 
-drop procedure if exists get_tv_series_for_actor;
+drop function if exists get_tv_series_for_actor;
 DELIMITER //
-create procedure get_tv_series_for_actor(in actor_id int, inout output text)
+create function get_tv_series_for_actor(actor_id int) returns text reads sql data
 begin
 	declare title varchar(50);
     declare release_date date;
     declare finished boolean default false;
+    declare output text default '';
     
     declare tv_series_cursor cursor for
     select tvs.title, tvs.release_date
@@ -77,6 +81,8 @@ begin
     
     end loop get_movies;
     close tv_series_cursor;
+    
+    return output;
 end//
 DELIMITER ;
 
@@ -101,23 +107,20 @@ begin
 		set output = concat(output, '\nData śmierci: ', date_format(date_of_death, '%e %M %Y'), ' (żył(a) ', timestampdiff(year, date_of_birth, date_of_death), ' lat)');
     end if;
 	set output = concat(output, '\nOpis: ', summary);
-	set @movies = '';
-	call get_movies_for_actor(actor_id, @movies);
-    set output = concat(output, '\n\nFilmy:\n', @movies);
-    set @tv_series = '';
-    call get_tv_series_for_actor(actor_id, @tv_series);
-    set output = concat(output, '\nSeriale:\n', @tv_series);
+    set output = concat(output, '\n\nFilmy:\n', get_movies_for_actor(actor_id));
+    set output = concat(output, '\nSeriale:\n', get_tv_series_for_actor(actor_id));
     
 	select output;
 end//
 DELIMITER ;
 
-drop procedure if exists get_actors_for_movie;
+drop function if exists get_actors_for_movie;
 DELIMITER //
-create procedure get_actors_for_movie(in movie_id int, inout output text)
+create function get_actors_for_movie(movie_id int) returns text reads sql data
 begin
     declare `name`, surname, `role` varchar(30);
     declare finished boolean default false;
+    declare output text default '';
     
     declare actors_cursor cursor for
     select a.`name`, a.surname, am.`role`
@@ -137,6 +140,8 @@ begin
     set output = concat(output, `name`, ' ', surname, ' jako ', `role`, '\n');
     end loop get_actors;
     close actors_cursor;
+    
+    return output;
 end//
 DELIMITER ;
 
@@ -159,7 +164,7 @@ begin
 		
         set output = concat('Film: ', title);
         
-		if strcmp(title, original_title) = 0 then
+		if strcmp(title, original_title) != 0 then
 			set output = concat(output, ' (oryginalny tytuł: ', original_title, ')');
 		end if;
         if is_released = 1 then
@@ -177,9 +182,7 @@ begin
 			set output = concat(output, round(average_score, 2));
         end if;
         set output = concat(output, '\n\nOpis: ', `description`);
-        set @actors = '';
-        call get_actors_for_movie(movie_id, @actors);
-        set output = concat(output, '\n\nAktorzy:\n', @actors);
+        set output = concat(output, '\n\nAktorzy:\n', get_actors_for_movie(movie_id));
         
 		select output;
     else
