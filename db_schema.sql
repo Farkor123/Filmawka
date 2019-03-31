@@ -38,7 +38,7 @@ create table if not exists conversation (
     time int(11) default null,
     foreign key(user_one) references users(user_id),
     foreign key(user_two) references users(user_id),
-    primary_key(conversation_id)
+    primary key(conversation_id)
 );
 
 create table if not exists conversation_reply (
@@ -49,7 +49,7 @@ create table if not exists conversation_reply (
     conversation_id int not null,
     foreign key(user_id) references users(user_id),
     foreign key(conversation_id) references conversation(conversation_id),
-    primary_key(conversation_reply_id)
+    primary key(conversation_reply_id)
 );
 
 create table if not exists actors (
