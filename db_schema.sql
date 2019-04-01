@@ -10,6 +10,7 @@ create table if not exists users (
     is_active tinyint(1) not null,
     nick varchar(50) not null,
     email varchar(50) not null,
+    isModerator BOOLEAN not null DEFAULT false,
     primary key(user_id)
 );
 
@@ -17,8 +18,8 @@ create table if not exists account_settings (
     account_settings_id int not null auto_increment,
     user_id int not null,
     night_mode tinyint(1) not null,
-	timezone varchar(30) not null,
-	is_newsletter tinyint(1) not null,
+    timezone varchar(30) not null,
+    is_newsletter tinyint(1) not null,
     foreign key(user_id) references users(user_id),
     primary key(account_settings_id)
 );
