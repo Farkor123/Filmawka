@@ -10,6 +10,7 @@ create table if not exists users (
     is_active tinyint(1) not null,
     nick varchar(50) not null,
     email varchar(50) not null,
+	isModerator BOOLEAN not null DEFAULT false,
     primary key(user_id)
 );
 
