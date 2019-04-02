@@ -213,7 +213,6 @@ create table if not exists comments (
 create table if not exists waiting_reviews(
 	review_id int not null auto_increment,
 	movie_id int not null,
-	is_main_review BOOLEAN DEFAULT false,
 	is_edited BOOLEAN DEFAULT false, 
 	review_writer_id int not null,
 	review MEDIUMTEXT,
