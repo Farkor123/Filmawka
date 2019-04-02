@@ -315,6 +315,18 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists search_directors;
+DELIMITER //
+create procedure search_directors(in user_query varchar(50))
+begin
+	set user_query = concat('%', user_query, '%');
+    
+    select d.director_id, d.`name`, d.surname
+    from directors d
+    where concat(d.`name`, ' ', d.surname) like user_query;
+end//
+DELIMITER ;
+
 -- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
