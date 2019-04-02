@@ -130,6 +130,18 @@ begin
 end//
 DELIMITER ;
 
+drop function if exists get_actor_id_for_full_name;
+DELIMITER //
+create function get_actor_id_for_full_name(full_name varchar(61)) returns int reads sql data
+begin
+	declare actor_id int;
+    
+    select a.actor_id from actors a where concat(a.`name`, ' ', a.surname) = full_name into actor_id;
+    
+    return actor_id;
+end//
+DELIMITER ;
+
 -- procedures
 drop procedure if exists actor_info;
 DELIMITER //
