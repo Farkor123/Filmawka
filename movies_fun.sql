@@ -365,6 +365,21 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists update_movie_director;
+DELIMITER //
+create procedure update_movie_director(in title varchar(50), in release_year int, in director_full_name varchar(61))
+begin
+	declare movie_id, new_director_id int;
+    
+    select get_movie_id_for_title(title, release_year) into movie_id;
+    select get_director_id_for_full_name(director_full_name) into new_director_id;
+    
+    update movies m
+    set m.director_id = new_director_id
+    where m.movie_id = movie_id;
+end//
+DELIMITER ;
+
 -- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
