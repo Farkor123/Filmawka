@@ -118,6 +118,18 @@ begin
 end//
 DELIMITER ;
 
+drop function if exists get_movie_id_for_title;
+DELIMITER //
+create function get_movie_id_for_title(title varchar(50), release_year int) returns int reads sql data
+begin
+	declare movie_id int;
+    
+    select m.movie_id from movies m where m.title = title and year(m.release_date) = release_year into movie_id;
+    
+    return movie_id;
+end//
+DELIMITER ;
+
 -- procedures
 drop procedure if exists actor_info;
 DELIMITER //
