@@ -327,6 +327,20 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists update_movie_description;
+DELIMITER //
+create procedure update_movie_description(in title varchar(50), in release_year int, in new_description text)
+begin
+	declare movie_id int;
+    
+    select get_movie_id_for_title(title, release_year) into movie_id;
+    
+    update movies m
+    set m.`description` = new_description
+    where m.movie_id = movie_id;
+end//
+DELIMITER ;
+
 -- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
