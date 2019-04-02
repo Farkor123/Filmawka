@@ -290,6 +290,19 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists search_tv_series;
+DELIMITER //
+create procedure search_tv_series(in user_query varchar(50))
+begin
+	set user_query = concat('%', user_query, '%');
+    
+    select tvs.title, tvs.original_title, tvs.release_date
+    from tv_series tvs
+    where tvs.title like user_query or tvs.original_title like user_query
+    order by tvs.release_date desc;
+end//
+DELIMITER ;
+
 -- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
