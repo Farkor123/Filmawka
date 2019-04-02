@@ -380,6 +380,21 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists add_actor_to_movie;
+DELIMITER //
+create procedure add_actor_to_movie(in full_name varchar(61), in `role` varchar(50), in title varchar(50), in release_year int)
+begin
+	declare actor_id, movie_id int;
+    declare exit handler for 1062
+    select 'Aktor już gra w tym filmie, nie można dodać';
+    
+    select get_actor_id_for_full_name(full_name) into actor_id;
+    select get_movie_id_for_title(title, release_year) into movie_id;
+	
+    insert into actor_movie(movie_id, actor_id, `role`) values(movie_id, actor_id, `role`);
+end//
+DELIMITER ;
+
 -- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
