@@ -146,7 +146,8 @@ create table if not exists actor_tv_series (
     `role` varchar(50) not null,
     primary key(actor_tv_season_id),
     foreign key(actor_id) references actors(actor_id),
-    foreign key(tv_series_id) references tv_series(tv_series_id)
+    foreign key(tv_series_id) references tv_series(tv_series_id),
+    unique key ActorCanStarOnceInATvSeries(actor_id, tv_series_id)
 );
 
 create table if not exists movie_ratings (
