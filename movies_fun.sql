@@ -436,6 +436,20 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists remove_actor_from_tv_series;
+DELIMITER //
+create procedure remove_actor_from_tv_series(in full_name varchar(61), in title varchar(50), in release_year int)
+begin
+	declare actor_id, tv_series_id int;
+    
+    select get_actor_id_for_full_name(full_name) into actor_id;
+    select get_tv_series_id_for_title(title, release_year) into tv_series_id;
+    
+    delete from actor_tv_series
+    where actor_tv_series.actor_id = actor_id and actor_tv_series.tv_series_id = tv_series_id;
+end//
+DELIMITER ;
+
 -- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
