@@ -421,6 +421,21 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists add_actor_to_tv_series;
+DELIMITER //
+create procedure add_actor_to_tv_series(in full_name varchar(61), in `role` varchar(50), in title varchar(50), in release_year int)
+begin
+	declare actor_id, tv_series_id int;
+    declare exit handler for 1062
+    select 'Aktor już gra w tym serialu, nie można dodać';
+    
+    select get_actor_id_for_full_name(full_name) into actor_id;
+    select get_tv_series_id_for_title(title, release_year) into tv_series_id;
+    
+    insert into actor_tv_series(actor_id, tv_series_id, `role`) values(actor_id, tv_series_id, `role`);
+end//
+DELIMITER ;
+
 -- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
