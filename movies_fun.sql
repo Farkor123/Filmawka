@@ -130,6 +130,18 @@ begin
 end//
 DELIMITER ;
 
+drop function if exists get_tv_series_id_for_title;
+DELIMITER //
+create function get_tv_series_id_for_title(title varchar(50), release_year int) returns int reads sql data
+begin
+	declare tv_series_id int;
+    
+    select tvs.tv_series_id from tv_series tvs where tvs.title = title and year(tvs.release_date) = release_year into tv_series_id;
+    
+    return tv_series_id;
+end//
+DELIMITER ;
+
 drop function if exists get_actor_id_for_full_name;
 DELIMITER //
 create function get_actor_id_for_full_name(full_name varchar(61)) returns int reads sql data
