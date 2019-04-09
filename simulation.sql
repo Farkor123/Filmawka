@@ -99,3 +99,21 @@ select * from tv_episode_ratings;
 call remove_tv_episode_rating(1, 1);
 select ser.title, sea.season_number, epi.episode_number, epi.average_score, epi.score_count from tv_episodes epi join tv_seasons sea on epi.tv_season_id = sea.tv_season_id join tv_series ser on sea.tv_series_id = ser.tv_series_id;
 select * from tv_episode_ratings;
+
+-- 17. wyszukiwanie filmu
+select title, original_title from movies;
+call search_movies('szybcy');
+call search_movies('fast');
+
+-- 18. wyszukiwanie serialu
+select title, original_title from tv_series;
+call search_tv_series('pitbul');
+
+-- 19. wyszukiwanie aktorów
+select `name`, surname from actors;
+call search_actors('janusz');
+call search_actors('jackson');
+
+-- 20. wyszukiwanie reżyserów
+select `name`, surname from directors;
+call search_directors('tarantino');
