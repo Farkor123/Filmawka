@@ -86,6 +86,7 @@ create table if not exists movies (
     director_id int,
     `description` text,
     average_score decimal(10, 8),
+    score_count int default 0,
     release_date date,
     is_released bool not null,
     category_id int,
@@ -100,6 +101,7 @@ create table if not exists tv_series (
     original_title varchar(50),
     `description` text,
     average_score decimal(10, 8),
+    score_count int default 0,
     release_date date,
     is_released bool not null,
     category_id int,
@@ -112,6 +114,7 @@ create table if not exists tv_seasons (
     season_number tinyint not null,
     number_of_episodes tinyint not null,
     average_score decimal(10, 8),
+    score_count int default 0,
     tv_series_id int not null,
     primary key(tv_season_id),
     foreign key(tv_series_id) references tv_series(tv_series_id)
@@ -124,6 +127,7 @@ create table if not exists tv_episodes (
     tv_season_id int not null,
     duration_in_minutes tinyint unsigned not null,
     average_score decimal(10, 8),
+    score_count int default 0,
     primary key(tv_episode_id),
     foreign key(tv_season_id) references tv_seasons(tv_season_id)
 );

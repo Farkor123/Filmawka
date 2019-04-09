@@ -476,8 +476,9 @@ DELIMITER //
 create trigger add_movie_rating after insert on movie_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from movie_ratings where movie_id = new.movie_id into avg_score;
-    update movies set average_score = avg_score where movie_id = new.movie_id;
+    declare score_count int;
+    select avg(rating), count(*) from movie_ratings where movie_id = new.movie_id into avg_score, score_count;
+    update movies m set m.average_score = avg_score, m.score_count = score_count where m.movie_id = new.movie_id;
 end//
 DELIMITER ;
 
@@ -486,8 +487,9 @@ DELIMITER //
 create trigger update_movie_rating after update on movie_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from movie_ratings where movie_id = old.movie_id into avg_score;
-    update movies set average_score = avg_score where movie_id = old.movie_id;
+    declare score_count int;
+    select avg(rating), count(*) from movie_ratings where movie_id = old.movie_id into avg_score, score_count;
+    update movies m set m.average_score = avg_score, m.score_count = score_count where m.movie_id = old.movie_id;
 end//
 DELIMITER ;
 
@@ -496,8 +498,9 @@ DELIMITER //
 create trigger delete_movie_rating after delete on movie_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from movie_ratings where movie_id = old.movie_id into avg_score;
-    update movies set average_score = avg_score where movie_id = old.movie_id;
+    declare score_count int;
+    select avg(rating), count(*) from movie_ratings where movie_id = old.movie_id into avg_score, score_count;
+    update movies m set m.average_score = avg_score, m.score_count = score_count where movie_id = old.movie_id;
 end//
 DELIMITER ;
 
@@ -527,8 +530,9 @@ DELIMITER //
 create trigger add_tv_series_rating after insert on tv_series_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from tv_series_ratings where tv_series_id = new.tv_series_id into avg_score;
-    update tv_series set average_score = avg_score where tv_series_id = new.tv_series_id;
+    declare score_count int;
+    select avg(rating), count(*) from tv_series_ratings where tv_series_id = new.tv_series_id into avg_score, score_count;
+    update tv_series tvs set tvs.average_score = avg_score, tvs.score_count = score_count where tvs.tv_series_id = new.tv_series_id;
 end//
 DELIMITER ;
 
@@ -537,8 +541,9 @@ DELIMITER //
 create trigger update_tv_series_rating after update on tv_series_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from tv_series_ratings where tv_series_id = old.tv_series_id into avg_score;
-    update tv_series set average_score = avg_score where tv_series_id = old.tv_series_id;
+    declare score_count int;
+    select avg(rating), count(*) from tv_series_ratings where tv_series_id = old.tv_series_id into avg_score, score_count;
+    update tv_series tvs set tvs.average_score = avg_score, tvs.score_count = score_count where tvs.tv_series_id = old.tv_series_id;
 end//
 DELIMITER ;
 
@@ -547,8 +552,9 @@ DELIMITER //
 create trigger delete_tv_series_rating after delete on tv_series_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from tv_series_ratings where tv_series_id = old.tv_series_id into avg_score;
-    update tv_series set average_score = avg_score where tv_series_id = old.tv_series_id;
+    declare score_count int;
+    select avg(rating), count(*) from tv_series_ratings where tv_series_id = old.tv_series_id into avg_score, score_count;
+    update tv_series tvs set tvs.average_score = avg_score, tvs.score_count = score_count where tvs.tv_series_id = old.tv_series_id;
 end//
 DELIMITER ;
 
@@ -578,8 +584,9 @@ DELIMITER //
 create trigger add_tv_season_rating after insert on tv_season_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from tv_season_ratings where tv_season_id = new.tv_season_id into avg_score;
-    update tv_seasons set average_score = avg_score where tv_season_id = new.tv_season_id;
+    declare score_count int;
+    select avg(rating), count(*) from tv_season_ratings where tv_season_id = new.tv_season_id into avg_score, score_count;
+    update tv_seasons tvs set tvs.average_score = avg_score, tvs.score_count = score_count where tvs.tv_season_id = new.tv_season_id;
 end//
 DELIMITER ;
 
@@ -588,8 +595,9 @@ DELIMITER //
 create trigger update_tv_season_rating after update on tv_season_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from tv_season_ratings where tv_season_id = old.tv_season_id into avg_score;
-    update tv_seasons set average_score = avg_score where tv_season_id = old.tv_season_id;
+    declare score_count int;
+    select avg(rating), count(*) from tv_season_ratings where tv_season_id = old.tv_season_id into avg_score, score_count;
+    update tv_seasons tvs set tvs.average_score = avg_score, tvs.score_count = score_count where tvs.tv_season_id = old.tv_season_id;
 end//
 DELIMITER ;
 
@@ -598,8 +606,9 @@ DELIMITER //
 create trigger delete_tv_season_rating after delete on tv_season_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from tv_season_ratings where tv_season_id = old.tv_season_id into avg_score;
-    update tv_seasons set average_score = avg_score where tv_season_id = old.tv_season_id;
+    declare score_count int;
+    select avg(rating), count(*) from tv_season_ratings where tv_season_id = old.tv_season_id into avg_score, score_count;
+    update tv_seasons tvs set tvs.average_score = avg_score, tvs.score_count = score_count where tvs.tv_season_id = old.tv_season_id;
 end//
 DELIMITER ;
 
@@ -629,8 +638,9 @@ DELIMITER //
 create trigger add_tv_episode_rating after insert on tv_episode_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from tv_episode_ratings where tv_episode_id = new.tv_episode_id into avg_score;
-    update tv_seasons set average_score = avg_score where tv_episode_id = new.tv_episode_id;
+    declare score_count int;
+    select avg(rating), count(*) from tv_episode_ratings where tv_episode_id = new.tv_episode_id into avg_score, score_count;
+    update tv_episodes tve set tve.average_score = avg_score, tve.score_count = score_count where tve.tv_episode_id = new.tv_episode_id;
 end//
 DELIMITER ;
 
@@ -639,8 +649,9 @@ DELIMITER //
 create trigger update_tv_episode_rating after update on tv_episode_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from tv_episode_ratings where tv_episode_id = old.tv_episode_id into avg_score;
-    update tv_seasons set average_score = avg_score where tv_episode_id = old.tv_episode_id;
+    declare score_count int;
+    select avg(rating), count(*) from tv_episode_ratings where tv_episode_id = old.tv_episode_id into avg_score, score_count;
+    update tv_episodes tve set tve.average_score = avg_score, tve.score_count = score_count where tve.tv_episode_id = old.tv_episode_id;
 end//
 DELIMITER ;
 
@@ -649,7 +660,8 @@ DELIMITER //
 create trigger delete_tv_episode_rating after delete on tv_episode_ratings for each row
 begin
 	declare avg_score decimal(10, 8);
-    select avg(rating) from tv_episode_ratings where tv_episode_id = old.tv_episode_id into avg_score;
-    update tv_seasons set average_score = avg_score where tv_episode_id = old.tv_episode_id;
+    declare score_count int;
+    select avg(rating), count(*) from tv_episode_ratings where tv_episode_id = old.tv_episode_id into avg_score, score_count;
+    update tv_episodes tve set tve.average_score = avg_score, tve.score_count = score_count where tve.tv_episode_id = old.tv_episode_id;
 end//
 DELIMITER ;
