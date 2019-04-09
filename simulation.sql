@@ -117,3 +117,19 @@ call search_actors('jackson');
 -- 20. wyszukiwanie reżyserów
 select `name`, surname from directors;
 call search_directors('tarantino');
+
+-- 21. ranking najpopularniejszych filmów z danej kategorii
+select title, c.`name` as category_name, average_score, score_count from movies m join categories c on m.category_id = c.category_id;
+call show_popular_movies_ranking('akcja');
+
+-- 22. ranking najlepiej ocenianych filmów z danej kategorii
+select title, c.`name` as category_name, average_score, score_count from movies m join categories c on m.category_id = c.category_id;
+call show_best_movies_ranking('akcja');
+
+-- 23. ranking najpopularniejszych seriali z danej kategorii
+select title, c.`name` as category_name, average_score, score_count from tv_series tvs join categories c on tvs.category_id = c.category_id;
+call show_popular_tv_series_ranking('thriller');
+
+-- 24. ranking najlepiej ocenianych seriali z danej kategorii
+select title, c.`name` as category_name, average_score, score_count from tv_series tvs join categories c on tvs.category_id = c.category_id;
+call show_best_tv_series_ranking('thriller');
