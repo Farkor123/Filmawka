@@ -1,6 +1,16 @@
 use filmawka;
 
 -- functions
+drop function if exists get_category_id;
+DELIMITER //
+create function get_category_id(category_name varchar(30)) returns int reads sql data
+begin
+	declare category_id int;
+    select c.category_id from categories c where c.`name` = category_name into category_id;
+    return category_id;
+end//
+DELIMITER ;
+
 drop function if exists get_category;
 DELIMITER //
 create function get_category(category_id int) returns varchar(30) reads sql data
