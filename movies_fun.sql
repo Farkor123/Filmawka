@@ -285,6 +285,14 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists remove_tv_series_rating;
+DELIMITER //
+create procedure remove_tv_series_rating(in user_id int, in tv_series_id int)
+begin
+	delete from tv_series_ratings where tv_series_ratings.user_id = user_id and tv_series_ratings.tv_series_id = tv_series_id;
+end//
+DELIMITER ;
+
 drop procedure if exists rate_tv_season;
 DELIMITER //
 create procedure rate_tv_season(in user_id int, in tv_season_id int, in rating tinyint)
