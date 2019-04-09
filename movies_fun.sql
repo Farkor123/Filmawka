@@ -514,6 +514,28 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists show_popular_tv_series_ranking;
+DELIMITER //
+create procedure show_popular_tv_series_ranking(in category_name varchar(30))
+begin
+	declare category_id int;
+    select get_category_id(category_name) into category_id;
+    
+    select tv_series_id, title, original_title, average_score, score_count from tv_series tvs where tvs.category_id = category_id order by score_count desc limit 5;
+end//
+DELIMITER ;
+
+drop procedure if exists show_best_tv_series_ranking;
+DELIMITER //
+create procedure show_best_tv_series_ranking(in category_name varchar(30))
+begin
+	declare category_id int;
+    select get_category_id(category_name) into category_id;
+    
+    select tv_series_id, title, original_title, average_score, score_count from tv_series tvs where tvs.category_id = category_id order by average_score desc limit 5;
+end//
+DELIMITER ;
+
 -- movie_ratings triggers
 drop trigger if exists insert_check_movie_rating;
 DELIMITER //
