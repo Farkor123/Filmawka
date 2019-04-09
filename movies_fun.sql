@@ -259,6 +259,14 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists remove_movie_rating;
+DELIMITER //
+create procedure remove_movie_rating(in user_id int, in movie_id int)
+begin
+	delete from movie_ratings where movie_ratings.user_id = user_id and movie_ratings.movie_id = movie_id;
+end//
+DELIMITER ;
+
 drop procedure if exists rate_tv_series;
 DELIMITER //
 create procedure rate_tv_series(in user_id int, in tv_series_id int, in rating tinyint)
