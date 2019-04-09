@@ -337,6 +337,14 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists remove_tv_episode_rating;
+DELIMITER //
+create procedure remove_tv_episode_rating(in user_id int, in tv_episode_id int)
+begin
+	delete from tv_episode_ratings where tv_episode_ratings.user_id = user_id and tv_episode_ratings.tv_episode_id = tv_episode_id;
+end//
+DELIMITER ;
+
 drop procedure if exists search_movies;
 DELIMITER //
 create procedure search_movies(in user_query varchar(50))
