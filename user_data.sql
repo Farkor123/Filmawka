@@ -1,6 +1,6 @@
 use filmawka;
 
-insert into users(user_id, first_name, last_name, create_date, is_active, nick, email) values (1, 'George', 'Washington', '2019-4-01', 1, 'gwashington' , 'george.washington@example.com');
+insert into users(user_id, first_name, last_name, create_date, is_active, nick, email,is_moderator) values (1, 'George', 'Washington', '2019-4-01', 1, 'gwashington', 'george.washington@example.com',true);
 insert into users(user_id, first_name, last_name, create_date, is_active, nick, email) values (2, 'John', 'Adams', '2019-4-01', 1, 'jadams' , 'john.adams@example.com');
 insert into users(user_id, first_name, last_name, create_date, is_active, nick, email) values (3, 'Thomas', 'Jefferson', '2019-4-01', 1, 'tjefferson' , 'thomas.jefferson@example.com');
 insert into users(user_id, first_name, last_name, create_date, is_active, nick, email) values (4, 'James', 'Madison', '2019-4-01', 1, 'jmadison' , 'james.madison@example.com');
