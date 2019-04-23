@@ -231,9 +231,17 @@ create table if not exists waiting_reviews(
 create table if not exists main_reviews(
 	review_id int not null auto_increment,
 	old_review_id int not null, 
-	accept_review_moderator int,
+	accept_review_moderator int not null,
 	review MEDIUMTEXT,
 	primary key(review_id),
 	foreign key(accept_review_moderator) references users(user_id),
 	foreign key(old_review_id) references waiting_reviews(review_id)
 );
+
+create table if not exists points_on_reviews(
+	waiting_reviews_id int not null,
+    user_id int not null,
+    foreign key(waiting_reviews_id) references waiting_reviews(review_id),
+    foreign key(user_id) references users(user_id)
+)
+
