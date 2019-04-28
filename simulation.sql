@@ -163,3 +163,28 @@ select m.movie_id, m.title, concat(a.`name`, ' ', a.surname) as actor, am.`role`
 select m.movie_id, m.title, concat(a.`name`, ' ', a.surname) as actor, am.`role` from movies m join actor_movie am on m.movie_id = am.movie_id join actors a on am.actor_id = a.actor_id where m.movie_id = 1;
 call remove_actor_from_movie('Lucy Liu', 'Pulp Fiction', 1995);
 select m.movie_id, m.title, concat(a.`name`, ' ', a.surname) as actor, am.`role` from movies m join actor_movie am on m.movie_id = am.movie_id join actors a on am.actor_id = a.actor_id where m.movie_id = 1;
+
+-- 31. zmiana opisu serialu
+select tv_series_id, title, `description` from tv_series where tv_series_id = 1;
+call update_tv_series_description('Wataha', 2014, 'Zmieniony opis serialu.');
+select tv_series_id, title, `description` from tv_series where tv_series_id = 1;
+
+-- 32. zmiana kategorii serialu
+select tvs.tv_series_id, tvs.title, c.`name` from tv_series tvs join categories c on tvs.category_id = c.category_id where tvs.tv_series_id = 1;
+call update_tv_series_category('Wataha', 2014, 'kryminał');
+select tvs.tv_series_id, tvs.title, c.`name` from tv_series tvs join categories c on tvs.category_id = c.category_id where tvs.tv_series_id = 1;
+
+-- 33. dodanie aktora do serialu
+select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+call add_actor_to_tv_series('Cezary Pazura', 'jakaś rola', 'Wataha', 2014);
+select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+
+-- 34. próba dodania aktora który już gra w danym serialu
+select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+call add_actor_to_tv_series('Cezary Pazura', 'jakaś rola', 'Wataha', 2014);
+select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+
+-- 35. usunięcie aktora z serialu
+select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+call remove_actor_from_tv_series('Cezary Pazura', 'Wataha', 2014);
+select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
