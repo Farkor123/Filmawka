@@ -188,3 +188,13 @@ select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, a
 select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
 call remove_actor_from_tv_series('Cezary Pazura', 'Wataha', 2014);
 select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+
+-- 36. ustawienie daty śmierci aktora
+select actor_id, concat(`name`, ' ', surname) as actor, date_of_death from actors where actor_id = 1;
+call set_actor_date_of_death('John Travolta', curdate());
+select actor_id, concat(`name`, ' ', surname) as actor, date_of_death from actors where actor_id = 1;
+
+-- 37. zmiana opisu aktora
+select actor_id, concat(`name`, ' ', surname) as actor, summary from actors where actor_id = 1;
+call update_actor_summary('John Travolta', 'Nowy opis aktora.');
+select actor_id, concat(`name`, ' ', surname) as actor, summary from actors where actor_id = 1;
