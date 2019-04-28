@@ -578,6 +578,20 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists update_director_date_of_death;
+DELIMITER //
+create procedure update_director_date_of_death(in full_name varchar(61), in date_of_death date)
+begin
+	declare director_id int;
+    
+    select get_director_id_for_full_name(full_name) into director_id;
+    
+    update directors d
+    set d.date_of_death = date_of_death
+    where d.director_id = director_id;
+end//
+DELIMITER ;
+
 drop procedure if exists show_popular_movies_ranking;
 DELIMITER //
 create procedure show_popular_movies_ranking(in category_name varchar(30))
