@@ -478,6 +478,20 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists update_tv_series_description;
+DELIMITER //
+create procedure update_tv_series_description(in title varchar(50), in release_year int, in new_description text)
+begin
+	declare tv_series_id int;
+    
+    select get_tv_series_id_for_title(title, release_year) into tv_series_id;
+    
+    update tv_series tvs
+    set tvs.`description` = new_description
+    where tvs.tv_series_id = tv_series_id;
+end//
+DELIMITER ;
+
 drop procedure if exists add_actor_to_tv_series;
 DELIMITER //
 create procedure add_actor_to_tv_series(in full_name varchar(61), in `role` varchar(50), in title varchar(50), in release_year int)
