@@ -550,6 +550,20 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists set_actor_date_of_death;
+DELIMITER //
+create procedure set_actor_date_of_death(in full_name varchar(61), in date_of_death date)
+begin
+	declare actor_id int;
+    
+    select get_actor_id_for_full_name(full_name) into actor_id;
+    
+    update actors a
+    set a.date_of_death = date_of_death
+    where a.actor_id = actor_id;
+end//
+DELIMITER ;
+
 drop procedure if exists show_popular_movies_ranking;
 DELIMITER //
 create procedure show_popular_movies_ranking(in category_name varchar(30))
