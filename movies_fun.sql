@@ -536,6 +536,20 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists update_actor_summary;
+DELIMITER //
+create procedure update_actor_summary(in full_name varchar(61), in new_summary text)
+begin
+	declare actor_id int;
+    
+    select get_actor_id_for_full_name(full_name) into actor_id;
+    
+    update actors a
+    set a.summary = new_summary
+    where a.actor_id = actor_id;
+end//
+DELIMITER ;
+
 drop procedure if exists show_popular_movies_ranking;
 DELIMITER //
 create procedure show_popular_movies_ranking(in category_name varchar(30))
