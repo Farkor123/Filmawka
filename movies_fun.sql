@@ -419,6 +419,21 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists update_movie_category;
+DELIMITER //
+create procedure update_movie_category(in title varchar(50), in release_year int, in new_category varchar(30))
+begin
+	declare movie_id, category_id int;
+    
+    select get_movie_id_for_title(title, release_year) into movie_id;
+    select get_category_id(new_category) into category_id;
+    
+    update movies m
+    set m.category_id = category_id
+    where m.movie_id = movie_id;
+end//
+DELIMITER ;
+
 drop procedure if exists update_movie_director;
 DELIMITER //
 create procedure update_movie_director(in title varchar(50), in release_year int, in director_full_name varchar(61))
