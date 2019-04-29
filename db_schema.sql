@@ -232,9 +232,11 @@ create table if not exists main_reviews(
 	review_id int not null auto_increment,
 	old_review_id int not null, 
 	accept_review_moderator int not null,
+	movie_id int not null,
 	review MEDIUMTEXT,
 	primary key(review_id),
 	foreign key(accept_review_moderator) references users(user_id),
+	foreign key(movie_id) references movies(movie_id),
 	foreign key(old_review_id) references waiting_reviews(review_id)
 );
 
