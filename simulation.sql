@@ -208,3 +208,10 @@ select director_id, concat(`name`, ' ', surname) as director, date_of_death from
 select director_id, concat(`name`, ' ', surname) as director, summary from directors where director_id = 1;
 call update_director_summary('Quentin Tarantino', 'Nowy opis reżysera.');
 select director_id, concat(`name`, ' ', surname) as director, summary from directors where director_id = 1;
+
+-- 40. wyświetlenie informacji o aktorze
+call actor_info(2);
+call actor_info(111);
+call actor_info(107);
+-- informacja o dacie śmierci
+call actor_info(53);
