@@ -217,6 +217,9 @@ call actor_info(107);
 call actor_info(53);
 
 -- 41. wyświetlenie informacji o reżyserze
+call director_info(1);
+-- informacja o dacie śmierci
+call director_info(19);
 
 -- 42. wyświetlenie informacji o filmie
 call movie_info(1);
