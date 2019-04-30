@@ -144,6 +144,13 @@ select m.movie_id, m.title, c.`name` from movies m join categories c on m.catego
 call update_movie_category(1, 'gangsterski');
 select m.movie_id, m.title, c.`name` from movies m join categories c on m.category_id = c.category_id where movie_id = 1;
 
+-- zmiana kategorii filmu na taką, której nie ma w bazie
+select * from categories;
+select m.movie_id, m.title, c.`name` from movies m join categories c on m.category_id = c.category_id where movie_id = 1;
+call update_movie_category(1, 'testowa');
+select * from categories;
+select m.movie_id, m.title, c.`name` from movies m join categories c on m.category_id = c.category_id where movie_id = 1;
+
 -- 27. zmiana reżysera filmu
 select m.movie_id, m.title, concat(d.`name`, ' ', d.surname) as director from movies m join directors d on m.director_id = d.director_id where m.movie_id = 1;
 call update_movie_director(1, 'Christopher Nolan');
