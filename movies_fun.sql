@@ -176,6 +176,18 @@ begin
 end//
 DELIMITER ;
 
+drop function if exists get_movie_score_count;
+DELIMITER //
+create function get_movie_score_count(movie_id int) returns int reads sql data
+begin
+	declare score_count int;
+    
+    select m.score_count from movies m where m.movie_id = movie_id into score_count;
+    
+    return score_count;
+end//
+DELIMITER ;
+
 -- procedures
 drop procedure if exists actor_info;
 DELIMITER //
@@ -241,6 +253,7 @@ begin
         else
 			set output = concat(output, round(average_score, 2));
         end if;
+        set output = concat(output, '\nLiczba ocen: ', get_movie_score_count(movie_id));
         set output = concat(output, '\n\nOpis: ', `description`);
         set output = concat(output, '\n\nAktorzy:\n', get_actors_for_movie(movie_id));
         
