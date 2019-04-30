@@ -7,6 +7,11 @@ create function get_category_id(category_name varchar(30)) returns int reads sql
 begin
 	declare category_id int;
     select c.category_id from categories c where c.`name` = lower(category_name) into category_id;
+    
+    if category_id is null then
+		signal sqlstate '10002';
+    end if;
+    
     return category_id;
 end//
 DELIMITER ;
@@ -665,12 +670,14 @@ DELIMITER //
 create procedure update_movie_category(in movie_id int, in new_category varchar(30))
 begin
 	declare category_id int;
-    select get_category_id(new_category) into category_id;
     
-    if category_id is null then
+	declare continue handler for sqlstate '10002'
+    begin
 		insert into categories(`name`) values (lower(new_category));
         select c.category_id from categories c where c.`name` = lower(new_category) into category_id;
-    end if;
+    end;
+    
+    select get_category_id(new_category) into category_id;
     
     update movies m
     set m.category_id = category_id
@@ -723,13 +730,13 @@ DELIMITER //
 create procedure update_tv_series_category(in tv_series_id int, in new_category varchar(30))
 begin
 	declare category_id int;
-    
-    select get_category_id(new_category) into category_id;
-    
-    if category_id is null then
+    declare continue handler for sqlstate '10002'
+    begin
 		insert into categories(`name`) values (lower(new_category));
         select c.category_id from categories c where c.`name` = lower(new_category) into category_id;
-    end if;
+    end;
+    
+    select get_category_id(new_category) into category_id;
     
     update tv_series tvs
     set tvs.category_id = category_id
@@ -802,6 +809,10 @@ DELIMITER //
 create procedure show_popular_movies_ranking(in category_name varchar(30))
 begin
 	declare category_id int;
+    
+	declare exit handler for sqlstate '10002'
+    select 'Nie znaleziono podanej kategorii.';
+    
     select get_category_id(category_name) into category_id;
     
     select movie_id, title, original_title, average_score, score_count from movies m where m.category_id = category_id order by score_count desc limit 5;
@@ -813,6 +824,10 @@ DELIMITER //
 create procedure show_best_movies_ranking(in category_name varchar(30))
 begin
 	declare category_id int;
+    
+	declare exit handler for sqlstate '10002'
+    select 'Nie znaleziono podanej kategorii.';
+    
     select get_category_id(category_name) into category_id;
     
     select movie_id, title, original_title, average_score, score_count from movies m where m.category_id = category_id order by average_score desc limit 5;
@@ -824,6 +839,10 @@ DELIMITER //
 create procedure show_popular_tv_series_ranking(in category_name varchar(30))
 begin
 	declare category_id int;
+    
+	declare exit handler for sqlstate '10002'
+    select 'Nie znaleziono podanej kategorii.';
+    
     select get_category_id(category_name) into category_id;
     
     select tv_series_id, title, original_title, average_score, score_count from tv_series tvs where tvs.category_id = category_id order by score_count desc limit 5;
@@ -835,6 +854,10 @@ DELIMITER //
 create procedure show_best_tv_series_ranking(in category_name varchar(30))
 begin
 	declare category_id int;
+    
+	declare exit handler for sqlstate '10002'
+    select 'Nie znaleziono podanej kategorii.';
+    
     select get_category_id(category_name) into category_id;
     
     select tv_series_id, title, original_title, average_score, score_count from tv_series tvs where tvs.category_id = category_id order by average_score desc limit 5;

@@ -122,17 +122,29 @@ call search_directors('tarantino');
 select title, c.`name` as category_name, average_score, score_count from movies m join categories c on m.category_id = c.category_id;
 call show_popular_movies_ranking('akcja');
 
+-- błędnie wpisana kategoria
+call show_popular_movies_ranking('ackja');
+
 -- ranking najlepiej ocenianych filmów z danej kategorii
 select title, c.`name` as category_name, average_score, score_count from movies m join categories c on m.category_id = c.category_id;
 call show_best_movies_ranking('akcja');
+
+-- błędnie wpisana kategoria
+call show_best_movies_ranking('ackja');
 
 -- ranking najpopularniejszych seriali z danej kategorii
 select title, c.`name` as category_name, average_score, score_count from tv_series tvs join categories c on tvs.category_id = c.category_id;
 call show_popular_tv_series_ranking('thriller');
 
+-- błędnie wpisana kategoria
+call show_popular_tv_series_ranking('thrilller');
+
 -- ranking najlepiej ocenianych seriali z danej kategorii
 select title, c.`name` as category_name, average_score, score_count from tv_series tvs join categories c on tvs.category_id = c.category_id;
 call show_best_tv_series_ranking('thriller');
+
+-- błędnie wpisana kategoria
+call show_best_tv_series_ranking('thrilller');
 
 -- zmiana opisu filmu
 select movie_id, title, `description` from movies where movie_id = 1;
