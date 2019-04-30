@@ -471,12 +471,8 @@ DELIMITER ;
 
 drop procedure if exists update_tv_series_description;
 DELIMITER //
-create procedure update_tv_series_description(in title varchar(50), in release_year int, in new_description text)
+create procedure update_tv_series_description(in tv_series_id int, in new_description text)
 begin
-	declare tv_series_id int;
-    
-    select get_tv_series_id_for_title(title, release_year) into tv_series_id;
-    
     update tv_series tvs
     set tvs.`description` = new_description
     where tvs.tv_series_id = tv_series_id;
@@ -485,11 +481,10 @@ DELIMITER ;
 
 drop procedure if exists update_tv_series_category;
 DELIMITER //
-create procedure update_tv_series_category(in title varchar(50), in release_year int, in new_category varchar(30))
+create procedure update_tv_series_category(in tv_series_id int, in new_category varchar(30))
 begin
-	declare tv_series_id, category_id int;
+	declare category_id int;
     
-    select get_tv_series_id_for_title(title, release_year) into tv_series_id;
     select get_category_id(new_category) into category_id;
     
     update tv_series tvs
@@ -500,14 +495,13 @@ DELIMITER ;
 
 drop procedure if exists add_actor_to_tv_series;
 DELIMITER //
-create procedure add_actor_to_tv_series(in full_name varchar(61), in `role` varchar(50), in title varchar(50), in release_year int)
+create procedure add_actor_to_tv_series(in full_name varchar(61), in `role` varchar(50), in tv_series_id int)
 begin
-	declare actor_id, tv_series_id int;
+	declare actor_id int;
     declare exit handler for 1062
     select 'Aktor już gra w tym serialu, nie można dodać';
     
     select get_actor_id_for_full_name(full_name) into actor_id;
-    select get_tv_series_id_for_title(title, release_year) into tv_series_id;
     
     insert into actor_tv_series(actor_id, tv_series_id, `role`) values(actor_id, tv_series_id, `role`);
 end//
@@ -515,12 +509,11 @@ DELIMITER ;
 
 drop procedure if exists remove_actor_from_tv_series;
 DELIMITER //
-create procedure remove_actor_from_tv_series(in full_name varchar(61), in title varchar(50), in release_year int)
+create procedure remove_actor_from_tv_series(in full_name varchar(61), in tv_series_id int)
 begin
-	declare actor_id, tv_series_id int;
+	declare actor_id int;
     
     select get_actor_id_for_full_name(full_name) into actor_id;
-    select get_tv_series_id_for_title(title, release_year) into tv_series_id;
     
     delete from actor_tv_series
     where actor_tv_series.actor_id = actor_id and actor_tv_series.tv_series_id = tv_series_id;
