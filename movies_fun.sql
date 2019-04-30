@@ -133,54 +133,6 @@ begin
 end//
 DELIMITER ;
 
-drop function if exists get_movie_id_for_title;
-DELIMITER //
-create function get_movie_id_for_title(title varchar(50), release_year int) returns int reads sql data
-begin
-	declare movie_id int;
-    
-    select m.movie_id from movies m where m.title = title and year(m.release_date) = release_year into movie_id;
-    
-    return movie_id;
-end//
-DELIMITER ;
-
-drop function if exists get_tv_series_id_for_title;
-DELIMITER //
-create function get_tv_series_id_for_title(title varchar(50), release_year int) returns int reads sql data
-begin
-	declare tv_series_id int;
-    
-    select tvs.tv_series_id from tv_series tvs where tvs.title = title and year(tvs.release_date) = release_year into tv_series_id;
-    
-    return tv_series_id;
-end//
-DELIMITER ;
-
-drop function if exists get_actor_id_for_full_name;
-DELIMITER //
-create function get_actor_id_for_full_name(full_name varchar(61)) returns int reads sql data
-begin
-	declare actor_id int;
-    
-    select a.actor_id from actors a where concat(a.`name`, ' ', a.surname) = full_name into actor_id;
-    
-    return actor_id;
-end//
-DELIMITER ;
-
-drop function if exists get_director_id_for_full_name;
-DELIMITER //
-create function get_director_id_for_full_name(full_name varchar(61)) returns int reads sql data
-begin
-	declare director_id int;
-    
-    select d.director_id from directors d where concat(d.`name`, ' ', d.surname) = full_name into director_id;
-    
-    return director_id;
-end//
-DELIMITER ;
-
 drop function if exists get_movie_score_count;
 DELIMITER //
 create function get_movie_score_count(movie_id int) returns int reads sql data
