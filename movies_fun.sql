@@ -221,6 +221,131 @@ begin
 end//
 DELIMITER ;
 
+drop function if exists get_tv_series_score_count;
+DELIMITER //
+create function get_tv_series_score_count(tv_series_id int) returns int reads sql data
+begin
+	declare score_count int;
+    
+    select tvs.score_count from tv_series tvs where tvs.tv_series_id = tv_series_id into score_count;
+    
+    return score_count;
+end//
+DELIMITER ;
+
+drop function if exists get_episodes_for_season;
+DELIMITER //
+create function get_episodes_for_season(tv_season_id int) returns text reads sql data
+begin
+	declare episode_title varchar(50);
+    declare episode_number tinyint;
+    declare duration_in_minutes tinyint unsigned;
+    declare average_score decimal(10, 8);
+    declare finished boolean default false;
+    declare output text default '';
+    
+    declare episode_cursor cursor for
+    select tve.episode_number, tve.title, tve.duration_in_minutes, tve.average_score
+    from tv_episodes tve
+    where tve.tv_season_id = tv_season_id
+    order by tve.episode_number asc;
+    
+    declare continue handler for not found set finished = true;
+    
+    open episode_cursor;
+    get_episodes: loop
+    
+    fetch episode_cursor into episode_number, episode_title, duration_in_minutes, average_score;
+    if finished = true then
+		leave get_episodes;
+	end if;
+    set output = concat(output, 'Odcinek ', episode_number); -- ' ', episode_title, ' (', duration_in_minutes, ' min, ocena', average_score, ')\n');
+    if episode_title is not null then
+		set output = concat(output, ' ', episode_title);
+    end if;
+    set output = concat(output, ' (', duration_in_minutes, ' min');
+    
+    if average_score is not null then
+		set output = concat(output, ', ocena ', average_score);
+    end if;
+    set output = concat(output, ')\n');
+    
+    end loop get_episodes;
+    close episode_cursor;
+    
+    return output;
+end//
+DELIMITER ;
+
+drop function if exists get_seasons_for_tv_series;
+DELIMITER //
+create function get_seasons_for_tv_series(tv_series_id int) returns text reads sql data
+begin
+	declare tv_season_id int;
+    declare season_number tinyint;
+    declare average_score decimal(10, 8);
+    declare finished boolean default false;
+    declare output text default '';
+    
+    declare season_cursor cursor for
+    select tvs.tv_season_id, tvs.season_number, tvs.average_score
+    from tv_seasons tvs
+    where tvs.tv_series_id = tv_series_id
+    order by tvs.season_number asc;
+    
+    declare continue handler for not found set finished = true;
+    
+    open season_cursor;
+    get_seasons: loop
+    
+    fetch season_cursor into tv_season_id, season_number, average_score;
+    if finished = true then
+		leave get_seasons;
+	end if;
+    set output = concat(output, 'Sezon ', season_number);
+    if average_score is not null then
+		set output = concat(output, ' (ocena ', average_score, ')');
+    end if;
+    set output = concat(output, '\n', get_episodes_for_season(tv_season_id));
+    
+    end loop get_seasons;
+    close season_cursor;
+    
+    return output;
+end//
+DELIMITER ;
+
+drop function if exists get_actors_for_tv_series;
+DELIMITER //
+create function get_actors_for_tv_series(tv_series_id int) returns text reads sql data
+begin
+	declare `name`, surname, `role` varchar(30);
+    declare finished boolean default false;
+    declare output text default '';
+    
+    declare actors_cursor cursor for
+    select a.`name`, a.surname, atvs.`role`
+	from actors a join actor_tv_series atvs on a.actor_id = atvs.actor_id
+	where atvs.tv_series_id = tv_series_id
+	order by a.surname asc;
+    
+    declare continue handler for not found set finished = true;
+    
+    open actors_cursor;
+    get_actors: loop
+    fetch actors_cursor into `name`, surname, `role`;
+    
+    if finished = true then
+		leave get_actors;
+	end if;
+    set output = concat(output, `name`, ' ', surname, ' jako ', `role`, '\n');
+    end loop get_actors;
+    close actors_cursor;
+    
+    return output;
+end//
+DELIMITER ;
+
 -- procedures
 drop procedure if exists actor_info;
 DELIMITER //
@@ -320,6 +445,53 @@ begin
 		select output;
     else
 		select 'Nie znaleziono filmu';
+    end if;
+end//
+DELIMITER ;
+
+drop procedure if exists tv_series_info;
+DELIMITER //
+create procedure tv_series_info(in tv_series_id int)
+begin
+	declare title, original_title varchar(30);
+    declare director_id, category_id int;
+    declare `description`, output text;
+    declare release_date date;
+    declare is_released boolean;
+    declare average_score decimal(10, 8);
+    
+    if exists(select * from tv_series tvs where tvs.tv_series_id = tv_series_id) then
+		select tvs.title, tvs.original_title, tvs.category_id, tvs.`description`, tvs.release_date, tvs.is_released, tvs.average_score
+		from tv_series tvs
+		where tvs.tv_series_id = tv_series_id
+		into title, original_title, category_id, `description`, release_date, is_released, average_score;
+		
+        set output = concat('Serial: ', title);
+        
+		if strcmp(title, original_title) != 0 then
+			set output = concat(output, ' (oryginalny tytuł: ', original_title, ')');
+		end if;
+        if is_released = 1 then
+			set output = concat(output, '\nData premiery: ');
+        else
+			set output = concat(output, '\nPlanowana data premiery: ');
+        end if;
+        set output = concat(output, date_format(release_date, '%e %M %Y'));
+        set output = concat(output, '\nKategoria: ', get_category(category_id));
+        set output = concat(output, '\nOcena: ');
+        if average_score is null then
+			set output = concat(output, 'nikt jeszcze nie ocenił tego serialu');
+        else
+			set output = concat(output, round(average_score, 2));
+        end if;
+        set output = concat(output, '\nLiczba ocen: ', get_tv_series_score_count(tv_series_id));
+        set output = concat(output, '\n\nOpis: ', `description`);
+        set output = concat(output, '\n\nSezony i odcinki:\n', get_seasons_for_tv_series(tv_series_id));
+        set output = concat(output, '\n\nAktorzy:\n', get_actors_for_tv_series(tv_series_id));
+        
+		select output;
+    else
+		select 'Nie znaleziono serialu';
     end if;
 end//
 DELIMITER ;
