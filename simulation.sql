@@ -215,3 +215,10 @@ call actor_info(111);
 call actor_info(107);
 -- informacja o dacie śmierci
 call actor_info(53);
+
+-- 41. wyświetlenie informacji o reżyserze
+
+-- 42. wyświetlenie informacji o filmie
+call movie_info(1);
+
+-- 43. wyświetlenie informacji o serialu
