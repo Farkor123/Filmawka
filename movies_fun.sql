@@ -259,7 +259,7 @@ begin
     if finished = true then
 		leave get_episodes;
 	end if;
-    set output = concat(output, 'Odcinek ', episode_number); -- ' ', episode_title, ' (', duration_in_minutes, ' min, ocena', average_score, ')\n');
+    set output = concat(output, 'Odcinek ', episode_number);
     if episode_title is not null then
 		set output = concat(output, ' ', episode_title);
     end if;
