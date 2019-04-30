@@ -189,19 +189,19 @@ select * from categories;
 select tvs.tv_series_id, tvs.title, c.`name` from tv_series tvs join categories c on tvs.category_id = c.category_id where tvs.tv_series_id = 1;
 
 -- dodanie aktora do serialu
-select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
-call add_actor_to_tv_series('Cezary Pazura', 'jakaś rola', 1);
-select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+select tvs.tv_series_id, a.actor_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+call add_actor_to_tv_series(60, 'jakaś rola', 1);
+select tvs.tv_series_id, a.actor_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
 
 -- próba dodania aktora który już gra w danym serialu
-select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
-call add_actor_to_tv_series('Cezary Pazura', 'jakaś rola', 1);
-select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+select tvs.tv_series_id, a.actor_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+call add_actor_to_tv_series(60, 'jakaś rola', 1);
+select tvs.tv_series_id, a.actor_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
 
 -- usunięcie aktora z serialu
-select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
-call remove_actor_from_tv_series('Cezary Pazura', 1);
-select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+select tvs.tv_series_id, a.actor_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
+call remove_actor_from_tv_series(60, 1);
+select tvs.tv_series_id, a.actor_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
 
 -- ustawienie daty śmierci aktora
 select actor_id, concat(`name`, ' ', surname) as actor, date_of_death from actors where actor_id = 1;
