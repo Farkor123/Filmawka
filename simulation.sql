@@ -205,22 +205,22 @@ select tvs.tv_series_id, a.actor_id, tvs.title, concat(a.`name`, ' ', a.surname)
 
 -- ustawienie daty śmierci aktora
 select actor_id, concat(`name`, ' ', surname) as actor, date_of_death from actors where actor_id = 1;
-call set_actor_date_of_death('John Travolta', curdate());
+call set_actor_date_of_death(1, curdate());
 select actor_id, concat(`name`, ' ', surname) as actor, date_of_death from actors where actor_id = 1;
 
 -- zmiana opisu aktora
 select actor_id, concat(`name`, ' ', surname) as actor, summary from actors where actor_id = 1;
-call update_actor_summary('John Travolta', 'Nowy opis aktora.');
+call update_actor_summary(1, 'Nowy opis aktora.');
 select actor_id, concat(`name`, ' ', surname) as actor, summary from actors where actor_id = 1;
 
 -- ustawienie daty śmierci reżysera
 select director_id, concat(`name`, ' ', surname) as director, date_of_death from directors where director_id = 1;
-call update_director_date_of_death('Quentin Tarantino', curdate());
+call update_director_date_of_death(1, curdate());
 select director_id, concat(`name`, ' ', surname) as director, date_of_death from directors where director_id = 1;
 
 -- zmiana opisu reżysera
 select director_id, concat(`name`, ' ', surname) as director, summary from directors where director_id = 1;
-call update_director_summary('Quentin Tarantino', 'Nowy opis reżysera.');
+call update_director_summary(1, 'Nowy opis reżysera.');
 select director_id, concat(`name`, ' ', surname) as director, summary from directors where director_id = 1;
 
 -- wyświetlenie informacji o aktorze

@@ -759,12 +759,8 @@ DELIMITER ;
 
 drop procedure if exists update_actor_summary;
 DELIMITER //
-create procedure update_actor_summary(in full_name varchar(61), in new_summary text)
+create procedure update_actor_summary(in actor_id int, in new_summary text)
 begin
-	declare actor_id int;
-    
-    select get_actor_id_for_full_name(full_name) into actor_id;
-    
     update actors a
     set a.summary = new_summary
     where a.actor_id = actor_id;
@@ -773,12 +769,8 @@ DELIMITER ;
 
 drop procedure if exists set_actor_date_of_death;
 DELIMITER //
-create procedure set_actor_date_of_death(in full_name varchar(61), in date_of_death date)
+create procedure set_actor_date_of_death(in actor_id int, in date_of_death date)
 begin
-	declare actor_id int;
-    
-    select get_actor_id_for_full_name(full_name) into actor_id;
-    
     update actors a
     set a.date_of_death = date_of_death
     where a.actor_id = actor_id;
@@ -787,12 +779,8 @@ DELIMITER ;
 
 drop procedure if exists update_director_summary;
 DELIMITER //
-create procedure update_director_summary(in full_name varchar(61), in new_summary text)
+create procedure update_director_summary(in director_id int, in new_summary text)
 begin
-	declare director_id int;
-    
-    select get_director_id_for_full_name(full_name) into director_id;
-    
     update directors d
     set d.summary = new_summary
     where d.director_id = director_id;
@@ -801,12 +789,8 @@ DELIMITER ;
 
 drop procedure if exists update_director_date_of_death;
 DELIMITER //
-create procedure update_director_date_of_death(in full_name varchar(61), in date_of_death date)
+create procedure update_director_date_of_death(in director_id int, in date_of_death date)
 begin
-	declare director_id int;
-    
-    select get_director_id_for_full_name(full_name) into director_id;
-    
     update directors d
     set d.date_of_death = date_of_death
     where d.director_id = director_id;
