@@ -6,7 +6,7 @@ DELIMITER //
 create function get_category_id(category_name varchar(30)) returns int reads sql data
 begin
 	declare category_id int;
-    select c.category_id from categories c where c.`name` = category_name into category_id;
+    select c.category_id from categories c where c.`name` = lower(category_name) into category_id;
     return category_id;
 end//
 DELIMITER ;
@@ -666,6 +666,11 @@ create procedure update_movie_category(in movie_id int, in new_category varchar(
 begin
 	declare category_id int;
     select get_category_id(new_category) into category_id;
+    
+    if category_id is null then
+		insert into categories(`name`) values (lower(new_category));
+        select c.category_id from categories where c.`name` = lower(new_category);
+    end if;
     
     update movies m
     set m.category_id = category_id
