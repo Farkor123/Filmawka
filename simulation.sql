@@ -223,5 +223,10 @@ call director_info(19);
 
 -- 42. wyświetlenie informacji o filmie
 call movie_info(1);
+-- błędne id filmu
+call movie_info(100);
 
 -- 43. wyświetlenie informacji o serialu
+call tv_series_info(2);
+-- błędne id serialu
+call tv_series_info(100);
