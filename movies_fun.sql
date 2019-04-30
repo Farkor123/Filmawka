@@ -35,13 +35,13 @@ drop function if exists get_movies_for_actor;
 DELIMITER //
 create function get_movies_for_actor(actor_id int) returns text reads sql data
 begin
-	declare title varchar(50);
+	declare title, `role` varchar(50);
     declare release_date date;
     declare finished boolean default false;
     declare output text default '';
     
     declare movie_cursor cursor for
-    select m.title, m.release_date
+    select m.title, m.release_date, am.`role`
     from actor_movie am join movies m on am.movie_id = m.movie_id
     where am.actor_id = actor_id
     order by m.release_date desc;
@@ -51,11 +51,11 @@ begin
     open movie_cursor;
     get_movies: loop
     
-    fetch movie_cursor into title, release_date;
+    fetch movie_cursor into title, release_date, `role`;
     if finished = true then
 		leave get_movies;
 	end if;
-    set output = concat(output, extract(year from release_date), ' ', title, '\n');
+    set output = concat(output, extract(year from release_date), ' ', title, ' jako ', `role`, '\n');
     
     end loop get_movies;
     close movie_cursor;
@@ -68,13 +68,13 @@ drop function if exists get_tv_series_for_actor;
 DELIMITER //
 create function get_tv_series_for_actor(actor_id int) returns text reads sql data
 begin
-	declare title varchar(50);
+	declare title, `role` varchar(50);
     declare release_date date;
     declare finished boolean default false;
     declare output text default '';
     
     declare tv_series_cursor cursor for
-    select tvs.title, tvs.release_date
+    select tvs.title, tvs.release_date, atvs.`role`
     from actor_tv_series atvs join tv_series tvs on atvs.tv_series_id = tvs.tv_series_id
     where atvs.actor_id = actor_id
     order by tvs.release_date desc;
@@ -84,11 +84,11 @@ begin
     open tv_series_cursor;
     get_movies: loop
     
-    fetch tv_series_cursor into title, release_date;
+    fetch tv_series_cursor into title, release_date, `role`;
     if finished = true then
 		leave get_movies;
 	end if;
-    set output = concat(output, extract(year from release_date), ' ', title, '\n');
+    set output = concat(output, extract(year from release_date), ' ', title, ' jako ', `role`, '\n');
     
     end loop get_movies;
     close tv_series_cursor;
