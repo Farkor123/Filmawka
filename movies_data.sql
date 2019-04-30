@@ -146,6 +146,7 @@ insert into directors(`name`, surname, date_of_birth, date_of_death, summary) va
 insert into directors(`name`, surname, date_of_birth, date_of_death, summary) values ('Alan', 'Taylor', '1965-06-11', null, 'Alan Taylor was born in 1965. He is a director and producer, known for Gra o tron (2011), Thor: Mroczny świat (2013) and Nowe szaty cesarza (2001).');
 insert into directors(`name`, surname, date_of_birth, date_of_death, summary) values ('Kenneth', 'Branagh', '1960-12-10', null, 'Sir Kenneth Charles Branagh – brytyjski aktor, reżyser i scenarzysta. Wszechstronnie uzdolniony filmowiec, znany głównie dzięki swym adaptacjom sztuk Williama Szekspira. Sukcesy w repertuarze szekspirowskim odnosił już na scenach teatralnych – w latach 80. należał do zespołu prestiżowej The Royal Shakespeare Company.');
 insert into directors(`name`, surname, date_of_birth, date_of_death, summary) values ('Martin', 'Scorsese', '1942-11-17', null, 'Martin Scorsese – amerykański reżyser, scenarzysta, montażysta, aktor i producent filmowy. Laureat Oscara za reżyserię filmu Infiltracja, doktor honoris causa Państwowej Wyższej Szkoły Filmowej Telewizyjnej i Teatralnej im. Leona Schillera w Łodzi.');
+insert into directors(`name`, surname, date_of_birth, date_of_death, summary) values ('Wojciech', 'Smarzowski', '1963-01-18', null, 'Wojciech Smarzowski, Wojtek Smarzowski – polski reżyser filmowy i teatralny, scenarzysta, operator filmowy.');
 
 -- categories
 insert into categories(`name`) values('komedia');
@@ -186,6 +187,7 @@ insert into movies(title, original_title, director_id, `description`, average_sc
 insert into movies(title, original_title, director_id, `description`, average_score, release_date, is_released, category_id) values('Thor', 'Thor', 16, 'Odyn skazuje swojego syna Thora na wygnanie. Zabiera mu boskie moce i zmusza do życia wśród ludzi.', null, '2011-04-29', true, 4);
 insert into movies(title, original_title, director_id, `description`, average_score, release_date, is_released, category_id) values('Thor: Mroczny świat', 'Thor: The Dark World', 15, 'Thor próbuje zaprowadzić porządek w kosmosie, ale starożytna rasa, dowodzona przez mściwego Malekitha powraca, by zepchnąć wszechświat w ciemność.', null, '2013-11-08', true, 4);
 insert into movies(title, original_title, director_id, `description`, average_score, release_date, is_released, category_id) values('Thor: Ragnarok', 'Thor: Ragnarok', 14, 'Thor mierzy się w walce bogów, podczas gdy Asgard jest zagrożony Ragnarokiem, nordycką apokalipsą. ', null, '2017-10-25', true, 4);
+insert into movies(title, original_title, director_id, `description`, average_score, release_date, is_released, category_id) values('Wesele', 'Wesele', 18, 'Bogaty mieszkaniec małego miasteczka urządza córce wesele. Kiedy zabawa rozkręca się na całego, wszystko zaczyna się walić.', null, '2004-08-13', true, 1);
 
 -- tv_series
 insert into tv_series(title, original_title, `description`, average_score, release_date, is_released, category_id) values('Wataha', 'Wataha', 'Kapitan Wiktor Rebrow próbuje rozwikłać zagadkę zamachu bombowego, w którym zginęli jego przyjaciele ze Straży Granicznej w Bieszczadach.', null, '2014-10-12', true, 6);
@@ -516,6 +518,8 @@ insert into actor_movie(movie_id, actor_id, `role`) values (27, 96, 'Thor');
 insert into actor_movie(movie_id, actor_id, `role`) values (27, 98, 'Loki');
 insert into actor_movie(movie_id, actor_id, `role`) values (27, 100, 'Hela');
 insert into actor_movie(movie_id, actor_id, `role`) values (27, 101, 'Heimdall');
+-- Wesele
+insert into actor_movie(movie_id, actor_id, `role`) values (28, 107, 'Wiesław Wojnar, ojciec Kaśki');
 
 -- actor_tv_series
 -- Wataha
