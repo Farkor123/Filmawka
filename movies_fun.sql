@@ -669,7 +669,7 @@ begin
     
     if category_id is null then
 		insert into categories(`name`) values (lower(new_category));
-        select c.category_id from categories where c.`name` = lower(new_category);
+        select c.category_id from categories c where c.`name` = lower(new_category) into category_id;
     end if;
     
     update movies m
