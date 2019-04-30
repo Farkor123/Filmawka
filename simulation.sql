@@ -181,6 +181,13 @@ select tvs.tv_series_id, tvs.title, c.`name` from tv_series tvs join categories 
 call update_tv_series_category(1, 'kryminał');
 select tvs.tv_series_id, tvs.title, c.`name` from tv_series tvs join categories c on tvs.category_id = c.category_id where tvs.tv_series_id = 1;
 
+-- zmiana kategorii serialu na taką, której nie ma w bazie
+select * from categories;
+select tvs.tv_series_id, tvs.title, c.`name` from tv_series tvs join categories c on tvs.category_id = c.category_id where tvs.tv_series_id = 1;
+call update_tv_series_category(1, 'testowa 2');
+select * from categories;
+select tvs.tv_series_id, tvs.title, c.`name` from tv_series tvs join categories c on tvs.category_id = c.category_id where tvs.tv_series_id = 1;
+
 -- dodanie aktora do serialu
 select tvs.tv_series_id, tvs.title, concat(a.`name`, ' ', a.surname) as actor, atvs.`role` from tv_series tvs join actor_tv_series atvs on tvs.tv_series_id = atvs.tv_series_id join actors a on atvs.actor_id = a.actor_id where tvs.tv_series_id = 1;
 call add_actor_to_tv_series('Cezary Pazura', 'jakaś rola', 1);

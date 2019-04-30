@@ -737,6 +737,11 @@ begin
     
     select get_category_id(new_category) into category_id;
     
+    if category_id is null then
+		insert into categories(`name`) values (lower(new_category));
+        select c.category_id from categories c where c.`name` = lower(new_category) into category_id;
+    end if;
+    
     update tv_series tvs
     set tvs.category_id = category_id
     where tvs.tv_series_id = tv_series_id;
