@@ -136,32 +136,32 @@ call show_best_tv_series_ranking('thriller');
 
 -- 25. zmiana opisu filmu
 select movie_id, title, `description` from movies where movie_id = 1;
-call update_movie_description('Pulp Fiction', 1995, 'Zmieniony opis filmu.');
+call update_movie_description(1, 'Zmieniony opis filmu.');
 select movie_id, title, `description` from movies where movie_id = 1;
 
 -- 26. zmiana kategorii filmu
 select m.movie_id, m.title, c.`name` from movies m join categories c on m.category_id = c.category_id where movie_id = 1;
-call update_movie_category('Pulp Fiction', 1995, 'gangsterski');
+call update_movie_category(1, 'gangsterski');
 select m.movie_id, m.title, c.`name` from movies m join categories c on m.category_id = c.category_id where movie_id = 1;
 
 -- 27. zmiana reżysera filmu
 select m.movie_id, m.title, concat(d.`name`, ' ', d.surname) as director from movies m join directors d on m.director_id = d.director_id where m.movie_id = 1;
-call update_movie_director('Pulp Fiction', 1995, 'Christopher Nolan');
+call update_movie_director(1, 'Christopher Nolan');
 select m.movie_id, m.title, concat(d.`name`, ' ', d.surname) as director from movies m join directors d on m.director_id = d.director_id where m.movie_id = 1;
 
 -- 28. dodanie aktora do filmu
 select m.movie_id, m.title, concat(a.`name`, ' ', a.surname) as actor, am.`role` from movies m join actor_movie am on m.movie_id = am.movie_id join actors a on am.actor_id = a.actor_id where m.movie_id = 1;
-call add_actor_to_movie('Lucy Liu', 'jakaś rola', 'Pulp Fiction', 1995);
+call add_actor_to_movie('Lucy Liu', 'jakaś rola', 1);
 select m.movie_id, m.title, concat(a.`name`, ' ', a.surname) as actor, am.`role` from movies m join actor_movie am on m.movie_id = am.movie_id join actors a on am.actor_id = a.actor_id where m.movie_id = 1;
 
 -- 29. próba dodania aktora który już gra w danym filmie
 select m.movie_id, m.title, concat(a.`name`, ' ', a.surname) as actor, am.`role` from movies m join actor_movie am on m.movie_id = am.movie_id join actors a on am.actor_id = a.actor_id where m.movie_id = 1;
-call add_actor_to_movie('Lucy Liu', 'jakaś rola', 'Pulp Fiction', 1995);
+call add_actor_to_movie('Lucy Liu', 'jakaś rola', 1);
 select m.movie_id, m.title, concat(a.`name`, ' ', a.surname) as actor, am.`role` from movies m join actor_movie am on m.movie_id = am.movie_id join actors a on am.actor_id = a.actor_id where m.movie_id = 1;
 
 -- 30. usunięcie aktora z filmu
 select m.movie_id, m.title, concat(a.`name`, ' ', a.surname) as actor, am.`role` from movies m join actor_movie am on m.movie_id = am.movie_id join actors a on am.actor_id = a.actor_id where m.movie_id = 1;
-call remove_actor_from_movie('Lucy Liu', 'Pulp Fiction', 1995);
+call remove_actor_from_movie('Lucy Liu', 1);
 select m.movie_id, m.title, concat(a.`name`, ' ', a.surname) as actor, am.`role` from movies m join actor_movie am on m.movie_id = am.movie_id join actors a on am.actor_id = a.actor_id where m.movie_id = 1;
 
 -- 31. zmiana opisu serialu
