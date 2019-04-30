@@ -680,12 +680,8 @@ DELIMITER ;
 
 drop procedure if exists update_movie_director;
 DELIMITER //
-create procedure update_movie_director(in movie_id int, in director_full_name varchar(61))
+create procedure update_movie_director(in movie_id int, in new_director_id int)
 begin
-	declare new_director_id int;
-    
-    select get_director_id_for_full_name(director_full_name) into new_director_id;
-    
     update movies m
     set m.director_id = new_director_id
     where m.movie_id = movie_id;
@@ -694,13 +690,10 @@ DELIMITER ;
 
 drop procedure if exists add_actor_to_movie;
 DELIMITER //
-create procedure add_actor_to_movie(in full_name varchar(61), in `role` varchar(50), in movie_id int)
+create procedure add_actor_to_movie(in actor_id int, in `role` varchar(50), in movie_id int)
 begin
-	declare actor_id int;
     declare exit handler for 1062
     select 'Aktor już gra w tym filmie, nie można dodać';
-    
-    select get_actor_id_for_full_name(full_name) into actor_id;
 	
     insert into actor_movie(movie_id, actor_id, `role`) values(movie_id, actor_id, `role`);
 end//
@@ -708,12 +701,8 @@ DELIMITER ;
 
 drop procedure if exists remove_actor_from_movie;
 DELIMITER //
-create procedure remove_actor_from_movie(in full_name varchar(61), in movie_id int)
+create procedure remove_actor_from_movie(in actor_id int, in movie_id int)
 begin
-	declare actor_id int;
-    
-    select get_actor_id_for_full_name(full_name) into actor_id;
-    
     delete from actor_movie
     where actor_movie.actor_id = actor_id and actor_movie.movie_id = movie_id;
 end//
