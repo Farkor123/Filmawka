@@ -767,9 +767,9 @@ begin
 end//
 DELIMITER ;
 
-drop procedure if exists set_actor_date_of_death;
+drop procedure if exists update_actor_date_of_death;
 DELIMITER //
-create procedure set_actor_date_of_death(in actor_id int, in date_of_death date)
+create procedure update_actor_date_of_death(in actor_id int, in date_of_death date)
 begin
     update actors a
     set a.date_of_death = date_of_death

@@ -205,7 +205,7 @@ select tvs.tv_series_id, a.actor_id, tvs.title, concat(a.`name`, ' ', a.surname)
 
 -- ustawienie daty śmierci aktora
 select actor_id, concat(`name`, ' ', surname) as actor, date_of_death from actors where actor_id = 1;
-call set_actor_date_of_death(1, curdate());
+call update_actor_date_of_death(1, curdate());
 select actor_id, concat(`name`, ' ', surname) as actor, date_of_death from actors where actor_id = 1;
 
 -- zmiana opisu aktora
