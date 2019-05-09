@@ -118,6 +118,10 @@ call search_actors('jackson');
 select `name`, surname from directors;
 call search_directors('tarantino');
 
+-- losowe wpisanie ocen dla filmów
+set SQL_SAFE_UPDATES = 0;
+update movies set score_count = floor(rand() * 50001) + 50000, average_score = (rand() * 5) + 5;
+
 -- ranking najpopularniejszych filmów z danej kategorii
 select title, c.`name` as category_name, average_score, score_count from movies m join categories c on m.category_id = c.category_id;
 call show_popular_movies_ranking('akcja');
@@ -132,6 +136,12 @@ call show_best_movies_ranking('akcja');
 -- błędnie wpisana kategoria
 call show_best_movies_ranking('ackja');
 
+-- sprzątanie po losowym wpisaniu ocen dla filmów
+update movies set score_count = 0, average_score = null;
+
+-- losowe wpisanie ocen dla seriali
+update tv_series set score_count = floor(rand() * 50001) + 50000, average_score = (rand() * 5) + 5;
+
 -- ranking najpopularniejszych seriali z danej kategorii
 select title, c.`name` as category_name, average_score, score_count from tv_series tvs join categories c on tvs.category_id = c.category_id;
 call show_popular_tv_series_ranking('thriller');
@@ -145,6 +155,9 @@ call show_best_tv_series_ranking('thriller');
 
 -- błędnie wpisana kategoria
 call show_best_tv_series_ranking('thrilller');
+
+-- sprzątanie po losowym wpisaniu ocen dla seriali
+update tv_series set score_count = 0, average_score = null;
 
 -- zmiana opisu filmu
 select movie_id, title, `description` from movies where movie_id = 1;
