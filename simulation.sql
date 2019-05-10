@@ -1,10 +1,17 @@
 use filmawka;
 
+-- zalogowanie potrzebnych użytkowników (do zmiany na funkcję/procedurę)
+insert into logged_in_users(user_id) values(1);
+insert into logged_in_users(user_id) values(2);
+
 -- ocenienie filmu
 select title, average_score, score_count from movies;
 call rate_movie(1, 1, 7);
 select title, average_score, score_count from movies;
 select * from movie_ratings;
+
+-- próba ocenienia filmu przez niezalogowanego użytkownika
+call rate_movie(3, 1, 7);
 
 -- próba ocenienia filmu błędną wartością (skala 1-10)
 select title, average_score, score_count from movies;
@@ -25,11 +32,19 @@ call remove_movie_rating(1, 1);
 select title, average_score, score_count from movies;
 select * from movie_ratings;
 
+-- próba usunięcia oceny filmu przez niezalogowanego użytkownika
+insert into movie_ratings(user_id, movie_id, rating, rating_date) values(3, 1, 5, now());
+call remove_movie_rating(3, 1);
+select * from movie_ratings;
+
 -- ocenienie serialu
 select title, average_score, score_count from tv_series;
 call rate_tv_series(1, 1, 6);
 select title, average_score, score_count from tv_series;
 select * from tv_series_ratings;
+
+-- próba ocenienia serialu przez niezalogowanego użytkownika
+call rate_tv_series(3, 1, 6);
 
 -- próba ocenienia serialu błędną wartością (skala 1-10)
 select title, average_score, score_count from tv_series;
@@ -50,11 +65,19 @@ call remove_tv_series_rating(1, 1);
 select title, average_score, score_count from tv_series;
 select * from tv_series_ratings;
 
+-- próba usunięcia oceny serialu przez niezalogowanego użytkownika
+insert into tv_series_ratings(user_id, tv_series_id, rating, rating_date) values(3, 1, 5, now());
+call remove_tv_series_rating(3, 1);
+select * from tv_series_ratings;
+
 -- ocenienie sezonu serialu
 select title, season_number, sea.average_score, sea.score_count from tv_seasons sea join tv_series ser on sea.tv_series_id = ser.tv_series_id;
 call rate_tv_season(1, 1, 7);
 select title, season_number, sea.average_score, sea.score_count from tv_seasons sea join tv_series ser on sea.tv_series_id = ser.tv_series_id;
 select * from tv_season_ratings;
+
+-- próba ocenienia sezonu serialu przez niezalogowanego użytkownika
+call rate_tv_season(3, 1, 7);
 
 -- próba ocenienia sezonu błędną wartością (skala 1-10)
 select title, season_number, sea.average_score, sea.score_count from tv_seasons sea join tv_series ser on sea.tv_series_id = ser.tv_series_id;
@@ -75,11 +98,19 @@ call remove_tv_season_rating(1, 1);
 select title, season_number, sea.average_score, sea.score_count from tv_seasons sea join tv_series ser on sea.tv_series_id = ser.tv_series_id;
 select * from tv_season_ratings;
 
+-- próba usunięcia oceny sezonu przez niezalogowanego użytkownika
+insert into tv_season_ratings(user_id, tv_season_id, rating, rating_date) values(3, 1, 5, now());
+call remove_tv_season_rating(3, 1);
+select * from tv_season_ratings;
+
 -- ocenienie odcinka
 select ser.title, sea.season_number, epi.episode_number, epi.average_score, epi.score_count from tv_episodes epi join tv_seasons sea on epi.tv_season_id = sea.tv_season_id join tv_series ser on sea.tv_series_id = ser.tv_series_id;
 call rate_tv_episode(1, 1, 6);
 select ser.title, sea.season_number, epi.episode_number, epi.average_score, epi.score_count from tv_episodes epi join tv_seasons sea on epi.tv_season_id = sea.tv_season_id join tv_series ser on sea.tv_series_id = ser.tv_series_id;
 select * from tv_episode_ratings;
+
+-- próba ocenienia odcinka przez niezalogowanego użytkownika
+call rate_tv_episode(3, 1, 6);
 
 -- próba ocenienia odcinka błędną wartością (skala 1-10)
 select ser.title, sea.season_number, epi.episode_number, epi.average_score, epi.score_count from tv_episodes epi join tv_seasons sea on epi.tv_season_id = sea.tv_season_id join tv_series ser on sea.tv_series_id = ser.tv_series_id;
@@ -98,6 +129,11 @@ select ser.title, sea.season_number, epi.episode_number, epi.average_score, epi.
 select * from tv_episode_ratings;
 call remove_tv_episode_rating(1, 1);
 select ser.title, sea.season_number, epi.episode_number, epi.average_score, epi.score_count from tv_episodes epi join tv_seasons sea on epi.tv_season_id = sea.tv_season_id join tv_series ser on sea.tv_series_id = ser.tv_series_id;
+select * from tv_episode_ratings;
+
+-- próba usunięcia oceny odcinka przez niezalogowanego użytkownika
+insert into tv_episode_ratings(user_id, tv_episode_id, rating, rating_date) values(3, 1, 5, now());
+call remove_tv_episode_rating(3, 1);
 select * from tv_episode_ratings;
 
 -- wyszukiwanie filmu
