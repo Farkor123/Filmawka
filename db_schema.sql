@@ -14,6 +14,11 @@ create table if not exists users (
     primary key(user_id)
 );
 
+create table if not exists logged_in_users (
+	logged_in_users_id int not null auto_increment,
+	user_id int not null,
+)
+
 create table if not exists account_settings (
     account_settings_id int not null auto_increment,
     user_id int not null,
