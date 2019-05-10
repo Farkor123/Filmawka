@@ -473,13 +473,17 @@ begin
 	declare exit handler for bad_rating
     select 'Ocena powinna być z zakresu <1, 10>';
     
-	-- 1062 is error number for duplicate entry for key (when user tries to rate the same movie more than once)
+    -- 1062 is error number for duplicate entry for key (when user tries to rate the same movie more than once)
 	declare continue handler for 1062
     update movie_ratings mr
-    set mr.rating = rating, rating_date = now()
-    where mr.user_id = user_id and mr.movie_id = movie_id;
-    
-    insert into movie_ratings(user_id, movie_id, rating) values(user_id, movie_id, rating);
+	set mr.rating = rating, rating_date = now()
+	where mr.user_id = user_id and mr.movie_id = movie_id;
+        
+    if is_user_logged_in(user_id) = 0 then
+		select 'Tylko zalogowani użytkownicy mogą dodawać oceny';
+    else
+		insert into movie_ratings(user_id, movie_id, rating) values(user_id, movie_id, rating);
+	end if;
 end//
 DELIMITER ;
 
@@ -487,7 +491,11 @@ drop procedure if exists remove_movie_rating;
 DELIMITER //
 create procedure remove_movie_rating(in user_id int, in movie_id int)
 begin
-	delete from movie_ratings where movie_ratings.user_id = user_id and movie_ratings.movie_id = movie_id;
+	if is_user_logged_in(user_id) = 0 then
+		select 'Tylko zalogowani użytkownicy mogą usuwać oceny' as message;
+    else
+		delete from movie_ratings where movie_ratings.user_id = user_id and movie_ratings.movie_id = movie_id;
+	end if;
 end//
 DELIMITER ;
 
@@ -505,7 +513,11 @@ begin
     set tvsr.rating = rating, rating_date = now()
     where tvsr.user_id = user_id and tvsr.tv_series_id = tv_series_id;
     
-    insert into tv_series_ratings(user_id, tv_series_id, rating) values(user_id, tv_series_id, rating);
+    if is_user_logged_in(user_id) = 0 then
+		select 'Tylko zalogowani użytkownicy mogą dodawać oceny' as message;
+    else
+		insert into tv_series_ratings(user_id, tv_series_id, rating) values(user_id, tv_series_id, rating);
+	end if;
 end//
 DELIMITER ;
 
@@ -513,7 +525,11 @@ drop procedure if exists remove_tv_series_rating;
 DELIMITER //
 create procedure remove_tv_series_rating(in user_id int, in tv_series_id int)
 begin
-	delete from tv_series_ratings where tv_series_ratings.user_id = user_id and tv_series_ratings.tv_series_id = tv_series_id;
+	if is_user_logged_in(user_id) = 0 then
+		select 'Tylko zalogowani użytkownicy mogą usuwać oceny' as message;
+    else
+		delete from tv_series_ratings where tv_series_ratings.user_id = user_id and tv_series_ratings.tv_series_id = tv_series_id;
+	end if;
 end//
 DELIMITER ;
 
@@ -531,7 +547,11 @@ begin
     set tvsr.rating = rating, rating_date = now()
     where tvsr.user_id = user_id and tvsr.tv_season_id = tv_season_id;
     
-    insert into tv_season_ratings(user_id, tv_season_id, rating) values(user_id, tv_season_id, rating);
+    if is_user_logged_in(user_id) = 0 then
+		select 'Tylko zalogowani użytkownicy mogą dodawać oceny' as message;
+    else
+		insert into tv_season_ratings(user_id, tv_season_id, rating) values(user_id, tv_season_id, rating);
+	end if;
 end//
 DELIMITER ;
 
@@ -539,7 +559,11 @@ drop procedure if exists remove_tv_season_rating;
 DELIMITER //
 create procedure remove_tv_season_rating(in user_id int, in tv_season_id int)
 begin
-	delete from tv_season_ratings where tv_season_ratings.user_id = user_id and tv_season_ratings.tv_season_id = tv_season_id;
+	if is_user_logged_in(user_id) = 0 then
+		select 'Tylko zalogowani użytkownicy mogą usuwać oceny' as message;
+    else
+		delete from tv_season_ratings where tv_season_ratings.user_id = user_id and tv_season_ratings.tv_season_id = tv_season_id;
+	end if;
 end//
 DELIMITER ;
 
@@ -557,7 +581,11 @@ begin
     set tver.rating = rating, rating_date = now()
     where tver.user_id = user_id and tver.tv_episode_id = tv_episode_id;
     
-    insert into tv_episode_ratings(user_id, tv_episode_id, rating) values(user_id, tv_episode_id, rating);
+    if is_user_logged_in(user_id) = 0 then
+		select 'Tylko zalogowani użytkownicy mogą dodawać oceny' as message;
+    else
+		insert into tv_episode_ratings(user_id, tv_episode_id, rating) values(user_id, tv_episode_id, rating);
+	end if;
 end//
 DELIMITER ;
 
@@ -565,7 +593,11 @@ drop procedure if exists remove_tv_episode_rating;
 DELIMITER //
 create procedure remove_tv_episode_rating(in user_id int, in tv_episode_id int)
 begin
-	delete from tv_episode_ratings where tv_episode_ratings.user_id = user_id and tv_episode_ratings.tv_episode_id = tv_episode_id;
+	if is_user_logged_in(user_id) = 0 then
+		select 'Tylko zalogowani użytkownicy mogą usuwać oceny' as message;
+    else
+		delete from tv_episode_ratings where tv_episode_ratings.user_id = user_id and tv_episode_ratings.tv_episode_id = tv_episode_id;
+	end if;
 end//
 DELIMITER ;
 
