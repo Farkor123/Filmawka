@@ -303,6 +303,18 @@ begin
 end//
 DELIMITER ;
 
+drop function if exists is_user_logged_in;
+DELIMITER //
+create function is_user_logged_in(user_id int) returns bool reads sql data
+begin
+	declare logged_in bool;
+    
+    select exists(select 1 from logged_in_users liu where liu.user_id = user_id) into logged_in;
+    
+	return logged_in;
+end//
+DELIMITER ;
+
 -- procedures
 drop procedure if exists actor_info;
 DELIMITER //
