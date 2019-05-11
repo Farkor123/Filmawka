@@ -33,7 +33,7 @@ create table if not exists account_settings (
 create table if not exists passwords (
 	password_id int not null auto_increment,
     user_id int,
-    password_hash binary(128) not null,
+    password_hash varchar(128) not null,
     foreign key(user_id) references users(user_id),
     primary key(password_id)
 );

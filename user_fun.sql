@@ -65,3 +65,34 @@ begin
     return reply;
 end//
 DELIMITER ;
+
+-- procedures
+drop procedure if exists login_user;
+DELIMITER //
+create procedure login_user(in username varchar(50), in password_hash_input varchar(128))
+this_proc:begin
+	declare is_user_exist tinyint;
+	declare login_user_id int;
+    declare login_user_password_hash varchar(128);
+
+    select exists(select * from users where nick = username) into is_user_exist;
+	if is_user_exist = 1 then
+		select exists(select user_id from users where nick = username) into login_user_id;
+	else
+		select 'Użytkownik nie istnieje' as message;
+        LEAVE this_proc;
+	end if;
+    select password_hash from passwords where user_id = login_user_id into login_user_password_hash;
+	if login_user_password_hash = password_hash_input then
+		if is_user_logged_in(login_user_id) = 1 then
+			select 'Użytkownik jest już zalogowany' as message;
+            LEAVE this_proc;
+        else
+			insert into logged_in_users(user_id) values(login_user_id);
+		end if;
+	else
+		select 'Podano błędne hasło' as message;
+        LEAVE this_proc;
+	end if;
+end//
+DELIMITER ;
