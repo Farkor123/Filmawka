@@ -214,11 +214,20 @@ create table if not exists comments (
     tv_series_id int null,
     user_id int,
     comment_date date not null,
-    content text not null,
+    content MEDIUMTEXT not null,
     primary key(comment_id),
     foreign key(movie_id) references movies(movie_id),
     foreign key(tv_series_id) references tv_series(tv_series_id),
     foreign key(user_id) references users(user_id)
+);
+
+create table if not exists comments_edits(
+	edit_id  int not null auto_increment,
+    edited_comment_id int not null,
+    comment_edit_date date not null,
+    content_before_edit Mediumtext not null,
+	foreign key(edited_comment_id) references comments(comment_id),
+    primary key (edit_id)
 );
 
 
@@ -251,5 +260,5 @@ create table if not exists points_on_reviews(
     user_id int not null,
     foreign key(waiting_reviews_id) references waiting_reviews(review_id),
     foreign key(user_id) references users(user_id)
-)
+);
 

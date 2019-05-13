@@ -255,3 +255,21 @@ end//
 DELIMITER ;
 
 
+
+CALL get_waiting_review_id_by_movie_id(2);
+select get_main_review_id_by_movie_id(1);
+Call get_main_review_info(3);
+select get_the_most_pointed_review(2);
+select remove_point_from_review(7,1);
+select get_points_from_waiting_review(7);
+select add_point_to_review(7,1);
+select get_points_from_waiting_review(7);
+select remove_point_from_review(7,1);
+select get_points_from_waiting_review(7);
+SELECT * from main_reviews;
+CALL set_waiting_review_to_main_review(6,1);
+SELECT * from main_reviews;
+CALL edit_waiting_review(1,"test edytowania");
+SELECT * from waiting_reviews;
+CALL get_waiting_reviews_info_by_movie_id(3);
+CALL get_waiting_reviews_info_by_review_id(2);
