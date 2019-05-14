@@ -650,6 +650,19 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists search_movies_in_category;
+DELIMITER //
+create procedure search_movies_in_category(in user_query varchar(50), in category_name varchar(30))
+begin
+	set user_query = concat('%', user_query, '%');
+    
+    select m.movie_id, m.title, m.original_title, m.release_date
+    from movies m
+    where m.category_id = get_category_id(category_name) and (m.title like user_query or m.original_title like user_query)
+    order by m.release_date desc;
+end//
+DELIMITER ;
+
 drop procedure if exists search_tv_series;
 DELIMITER //
 create procedure search_tv_series(in user_query varchar(50))
@@ -659,6 +672,19 @@ begin
     select tvs.tv_series_id, tvs.title, tvs.original_title, tvs.release_date
     from tv_series tvs
     where tvs.title like user_query or tvs.original_title like user_query
+    order by tvs.release_date desc;
+end//
+DELIMITER ;
+
+drop procedure if exists search_tv_series_in_category;
+DELIMITER //
+create procedure search_tv_series_in_category(in user_query varchar(50), in category_name varchar(30))
+begin
+	set user_query = concat('%', user_query, '%');
+    
+    select tvs.tv_series_id, tvs.title, tvs.original_title, tvs.release_date
+    from tv_series tvs
+    where tvs.category_id = get_category_id(category_name) and (tvs.title like user_query or tvs.original_title like user_query)
     order by tvs.release_date desc;
 end//
 DELIMITER ;

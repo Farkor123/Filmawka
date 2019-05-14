@@ -137,13 +137,19 @@ call remove_tv_episode_rating(3, 1);
 select * from tv_episode_ratings;
 
 -- wyszukiwanie filmu
-select title, original_title from movies;
+select m.title, m.original_title, c.`name` as category from movies m join categories c on m.category_id = c.category_id;
 call search_movies('szybcy');
 call search_movies('fast');
 
+-- wyszukiwanie filmu wraz z kategorią
+call search_movies_in_category('szybcy', 'akcja');
+
 -- wyszukiwanie serialu
-select title, original_title from tv_series;
+select tvs.title, tvs.original_title, c.`name` as category from tv_series tvs join categories c on tvs.category_id = c.category_id;
 call search_tv_series('pitbul');
+
+-- wyszukiwanie serialu wraz z kategorią
+call search_tv_series_in_category('pitbul', '');
 
 -- wyszukiwanie aktorów
 select `name`, surname from actors;
