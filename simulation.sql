@@ -149,7 +149,11 @@ select tvs.title, tvs.original_title, c.`name` as category from tv_series tvs jo
 call search_tv_series('pitbul');
 
 -- wyszukiwanie serialu wraz z kategorią
-call search_tv_series_in_category('pitbul', '');
+call search_tv_series_in_category('pitbul', 'thriller');
+
+-- dynamiczne wyszukiwanie
+call search('szybcy', 'movies');
+call search('wataha', 'tv_series');
 
 -- wyszukiwanie aktorów
 select `name`, surname from actors;

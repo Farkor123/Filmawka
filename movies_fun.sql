@@ -689,6 +689,17 @@ begin
 end//
 DELIMITER ;
 
+drop procedure if exists search;
+DELIMITER //
+create procedure search(in user_query varchar(50), in `table_name` varchar(50))
+begin
+    set @statement_string = concat('select title, original_title, release_date from ', `table_name`, ' where title like ''%', user_query, '%'' or original_title like ''%', user_query, '%''');
+    prepare search_statement from @statement_string;
+    execute search_statement;
+    deallocate prepare search_statement;
+end//
+DELIMITER ;
+
 drop procedure if exists search_actors;
 DELIMITER //
 create procedure search_actors(in user_query varchar(50))
