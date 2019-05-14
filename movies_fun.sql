@@ -367,10 +367,10 @@ begin
 	
 	set output = concat('Aktor: ', a_name, ' ', a_surname);
 	if date_of_death is null then
-		set output = concat(output, '\nData urodzenia: ', date_format(date_of_birth, '%e %M %Y'), ' (', timestampdiff(year, date_of_birth, curdate()), ' lat)');
+		set output = concat(output, '\nData urodzenia: ', format_date(date_of_birth), ' (', timestampdiff(year, date_of_birth, curdate()), ' lat)');
 	else
-		set output = concat(output, '\nData urodzenia: ', date_format(date_of_birth, '%e %M %Y'));
-		set output = concat(output, '\nData śmierci: ', date_format(date_of_death, '%e %M %Y'), ' (żył(a) ', timestampdiff(year, date_of_birth, date_of_death), ' lat)');
+		set output = concat(output, '\nData urodzenia: ', format_date(date_of_birth));
+		set output = concat(output, '\nData śmierci: ', format_date(date_of_death), ' (żył(a) ', timestampdiff(year, date_of_birth, date_of_death), ' lat)');
     end if;
 	set output = concat(output, '\nOpis: ', summary);
     set output = concat(output, '\n\nFilmy:\n', get_movies_for_actor(actor_id));
@@ -395,10 +395,10 @@ begin
     
     set output = concat('Reżyser: ', d_name, ' ', d_surname);
 	if date_of_death is null then
-		set output = concat(output, '\nData urodzenia: ', date_format(date_of_birth, '%e %M %Y'), ' (', timestampdiff(year, date_of_birth, curdate()), ' lat)');
+		set output = concat(output, '\nData urodzenia: ', format_date(date_of_birth), ' (', timestampdiff(year, date_of_birth, curdate()), ' lat)');
 	else
-		set output = concat(output, '\nData urodzenia: ', date_format(date_of_birth, '%e %M %Y'));
-		set output = concat(output, '\nData śmierci: ', date_format(date_of_death, '%e %M %Y'), ' (żył(a) ', timestampdiff(year, date_of_birth, date_of_death), ' lat)');
+		set output = concat(output, '\nData urodzenia: ', format_date(date_of_birth));
+		set output = concat(output, '\nData śmierci: ', format_date(date_of_death), ' (żył(a) ', timestampdiff(year, date_of_birth, date_of_death), ' lat)');
     end if;
 	set output = concat(output, '\nOpis: ', summary);
     set output = concat(output, '\n\nFilmy:\n', get_movies_for_director(director_id));
@@ -434,7 +434,7 @@ begin
         else
 			set output = concat(output, '\nPlanowana data premiery: ');
         end if;
-        set output = concat(output, date_format(release_date, '%e %M %Y'));
+        set output = concat(output, format_date(release_date));
         set output = concat(output, '\nReżyser: ', get_director(director_id));
         set output = concat(output, '\nKategoria: ', get_category(category_id));
         set output = concat(output, '\nOcena: ');
@@ -481,7 +481,7 @@ begin
         else
 			set output = concat(output, '\nPlanowana data premiery: ');
         end if;
-        set output = concat(output, date_format(release_date, '%e %M %Y'));
+        set output = concat(output, format_date(release_date));
         set output = concat(output, '\nKategoria: ', get_category(category_id));
         set output = concat(output, '\nOcena: ');
         if average_score is null then
