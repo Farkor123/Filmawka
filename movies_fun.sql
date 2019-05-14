@@ -315,6 +315,42 @@ begin
 end//
 DELIMITER ;
 
+drop function if exists format_date;
+DELIMITER //
+create function format_date(`date` date) returns varchar(30) reads sql data
+begin
+	declare month_string varchar(20);
+    
+    if month(`date`) = 1 then
+		set month_string = 'styczeń';
+	elseif month(`date`) = 2 then
+		set month_string = 'luty';
+    elseif month(`date`) = 3 then
+		set month_string = 'marzec';
+    elseif month(`date`) = 4 then
+		set month_string = 'kwiecień';
+    elseif month(`date`) = 5 then
+		set month_string = 'maj';
+    elseif month(`date`) = 6 then
+		set month_string = 'czerwiec';
+    elseif month(`date`) = 7 then
+		set month_string = 'lipiec';
+    elseif month(`date`) = 8 then
+		set month_string = 'sierpień';
+    elseif month(`date`) = 9 then
+		set month_string = 'wrzesień';
+    elseif month(`date`) = 10 then
+		set month_string = 'październik';
+    elseif month(`date`) = 11 then
+		set month_string = 'listopad';
+    elseif month(`date`) = 12 then
+        set month_string = 'grudzień';
+    end if;
+    
+    return concat(day(`date`), ' ', month_string, ' ', year(`date`));
+end//
+DELIMITER ;
+
 -- procedures
 drop procedure if exists actor_info;
 DELIMITER //
