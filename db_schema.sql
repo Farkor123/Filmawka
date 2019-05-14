@@ -213,7 +213,7 @@ create table if not exists comments (
     movie_id int null,
     tv_series_id int null,
     user_id int,
-    comment_date date not null,
+    comment_date datetime not null,
     content MEDIUMTEXT not null,
     primary key(comment_id),
     foreign key(movie_id) references movies(movie_id),
@@ -221,10 +221,10 @@ create table if not exists comments (
     foreign key(user_id) references users(user_id)
 );
 
-create table if not exists comments_edits(
+create table if not exists edited_comments(
 	edit_id  int not null auto_increment,
     edited_comment_id int not null,
-    comment_edit_date date not null,
+    comment_edit_date datetime not null,
     content_before_edit Mediumtext not null,
 	foreign key(edited_comment_id) references comments(comment_id),
     primary key (edit_id)
@@ -233,12 +233,14 @@ create table if not exists comments_edits(
 
 create table if not exists waiting_reviews(
 	review_id int not null auto_increment,
-	movie_id int not null,
+	movie_id int null,
+    tv_series_id int null,
 	is_edited BOOLEAN DEFAULT false, 
 	review_writer_id int not null,
 	review MEDIUMTEXT,
 	points int, 
 	primary key(review_id),
+    foreign key(tv_series_id) references tv_series(tv_series_id),
 	foreign key(movie_id) references movies(movie_id),
 	foreign key(review_writer_id) references users(user_id)
 );
@@ -247,9 +249,11 @@ create table if not exists main_reviews(
 	review_id int not null auto_increment,
 	old_review_id int not null, 
 	accept_review_moderator int not null,
-	movie_id int not null,
+	movie_id int null,
+    tv_series_id int null,
 	review MEDIUMTEXT,
 	primary key(review_id),
+    foreign key(tv_series_id) references tv_series(tv_series_id),
 	foreign key(accept_review_moderator) references users(user_id),
 	foreign key(movie_id) references movies(movie_id),
 	foreign key(old_review_id) references waiting_reviews(review_id)
