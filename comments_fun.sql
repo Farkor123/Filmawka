@@ -4,7 +4,7 @@ DELIMITER //
 create function add_comment_to_movie(movie_id int,user_id int,content MEDIUMTEXT) returns BOOLEAN reads sql data
 begin
 	if exists(select * from movies m where m.movie_id=movie_id) then
-		insert into comments(movie_id, user_id, comment_date,content) values (movie_id, user_id, NOW(),content);
+		insert into comments_movies(movie_id, user_id, comment_date,content) values (movie_id, user_id, NOW(),content);
 		return true;
 	else
 		return false;
@@ -16,7 +16,7 @@ DELIMITER //
 create function add_comment_to_tv_series(tv_series_id int,user_id int,content MEDIUMTEXT) returns BOOLEAN reads sql data
 begin
 	if exists(select * from tv_series t where t.tv_series_id.tv_series_id=tv_series_id) then
-		insert into comments(tv_series_id, user_id, comment_date,content) values (tv_series_id, user_id, NOW(),content);
+		insert into comments_tv_series(tv_series_id, user_id, comment_date,content) values (tv_series_id, user_id, NOW(),content);
 		return true;
 	else
 		return false;
@@ -27,7 +27,7 @@ drop procedure if exists add_comment;
 DELIMITER //
 create procedure add_comment(id_commented int, user_id int,content MEDIUMTEXT,movie_or_tv_series int) -- tutaj 0 to movie, 1 to tv series
 begin
-	if exists(select * from users u where u.user_id=user_id)
+	if is_user_logged_in(user_id) != 0
 		then
 			CASE 
             WHEN movie_or_tv_series=0 then
@@ -43,39 +43,104 @@ begin
 					end if;
 				END;
 			ELSE
-					select 'select 0 for movie, or 1 for tv series in move_or_tv_series';
+					select 'error: 0 dla komentarza do movie, 1 dla komentarza dla serii tv';
 			END CASE;
 	else
-		select 'wrong user_id';
+		select 'error: user nie jest zalogowany';
 	end if;
 end//
 DELIMITER ;
 
-drop procedure if exists remove_comment;
+drop procedure if exists remove_comment_movie;
 DELIMITER //
-create procedure remove_comment(comment_id int, user_id int)
+create procedure remove_comment_movie(comment_id int, user_id int)
 begin
-	if ((select c.user_id from comments c where c.comment_id=comment_id)=user_id OR (select u.is_moderator from users u where u.user_id=user_id)=1)
+	if exists (select 1 from comments_movies c where c.comment_id=comment_id) 
     then
-		DELETE FROM comments  where comments.comment_id = comment_id;
-    else
-    select 'wrong comment_id or user without permission';
+		if ((select c.user_id from comments_movies c where c.comment_id=comment_id)=user_id OR (select u.is_moderator from users u where u.user_id=user_id)=1) 
+        and
+        is_user_logged_in(user_id) != 0
+		then
+			if exists(select 1 from edited_comments_movies)
+            then
+				DELETE from edited_comments_movies where edited_comments_movies.comment_id=comment_id;
+			end if;
+			DELETE FROM comments_movies  where comments.comment_id = comment_id;
+		else
+			select 'error: user bez odpowiedniego prawa, lub user niezalogowany';
+		END IF;
+	else
+		select 'error: nieprawidowe comment_id';
     END IF;
 end//
 DELIMITER ;
 
-drop procedure if exists edit_comment;
+drop procedure if exists edit_comment_movie;
 DELIMITER //
-create procedure edit_comment(comment_id int, user_id int,content MEDIUMTEXT) 
+create procedure edit_comment_movie(comment_id int, user_id int,content MEDIUMTEXT) 
 begin
-	if ((select c.user_id from comments c where c.comment_id=comment_id)=user_id OR (select u.is_moderator from users u where u.user_id=user_id)=1)
+	if exists (select 1 from comments_movies c where c.comment_id=comment_id) 
     then
-		UPDATE  comments c SET c.content=content  where c.comment_id = comment_id;
-    else
-    select 'wrong comment_id or user without permission';
+		if ((select c.user_id from comments_movies c where c.comment_id=comment_id)=user_id OR (select u.is_moderator from users u where u.user_id=user_id)=1) 
+        and
+        is_user_logged_in(user_id) != 0
+		then
+			UPDATE  comments_movies c SET c.content=content  where c.comment_id = comment_id;
+		else
+			select 'error: user bez odpowiedniego prawa, lub user niezalogowany';
+		END IF;
+    ELSE
+			select 'error: nieprawidowe comment_id';
     END IF;
 end//
 DELIMITER ;
+
+drop procedure if exists remove_comment_tv_series;
+DELIMITER //
+create procedure remove_comment_tv_series(comment_id int, user_id int)
+begin
+	if exists (select 1 from comments_tv_series c where c.comment_id=comment_id) 
+    then
+		if ((select c.user_id from comments_tv_series c where c.comment_id=comment_id)=user_id OR (select u.is_moderator from users u where u.user_id=user_id)=1) 
+        and
+        is_user_logged_in(user_id) != 0
+		then
+			if exists(select 1 from edited_comments_tv_series)
+            then
+				DELETE from edited_comments_tv_series where edited_comments_tv_series.comment_id=comment_id;
+			end if;
+            
+			DELETE FROM comments_tv_series  where comments.comment_id = comment_id;
+		else
+			select 'error: user bez odpowiedniego prawa, lub user niezalogowany';
+		END IF;
+	else
+		select 'error: nieprawidowe comment_id';
+    END IF;
+end//
+DELIMITER ;
+
+drop procedure if exists edit_comment_tv_series;
+DELIMITER //
+create procedure edit_comment_tv_series(comment_id int, user_id int,content MEDIUMTEXT) 
+begin
+	if exists (select 1 from comments_tv_series c where c.comment_id=comment_id) 
+    then
+		if ((select c.user_id from comments_tv_series c where c.comment_id=comment_id)=user_id OR (select u.is_moderator from users u where u.user_id=user_id)=1) 
+        and
+        is_user_logged_in(user_id) != 0
+		then
+			UPDATE  comments_tv_series c SET c.content=content  where c.comment_id = comment_id;
+		else
+			select 'error: user bez odpowiedniego prawa, lub user niezalogowany';
+		END IF;
+    ELSE
+			select 'error: nieprawidowe comment_id';
+    END IF;
+end//
+DELIMITER ;
+
+
 
 drop procedure if exists get_all_comments_by_movie_id;
 DELIMITER //
@@ -92,7 +157,7 @@ begin
    
 	declare comment_cursor cursor for
     select c.user_id, c.comment_date,c.content
-    from comments c
+    from comments_movies c
     where c.movie_id=movie_id
     order by c.comment_date desc;
     
@@ -136,7 +201,7 @@ begin
    
 	declare comment_cursor cursor for
     select c.user_id, c.comment_date,c.content
-    from comments c
+    from comments_tv_series c
     where c.tv_series_id=tv_series_id
     order by c.comment_date desc;
     
@@ -168,18 +233,19 @@ DELIMITER ;
 
 
 -- triggers
-drop trigger if exists comment_updated;
+drop trigger if exists comment_updated_movies;
 DELIMITER // 
-CREATE TRIGGER comment_updated AFTER UPDATE ON comments for each row
+CREATE TRIGGER comment_updated_movies AFTER UPDATE ON comments_movies for each row
 begin
-	insert into edited_comments(edited_comment_id,comment_edit_date,content_before_edit) values(OLD.comment_id,CURDATE(),OLD.content);
+	insert into edited_comments_movies(edited_comment_id,comment_edit_date,content_before_edit) values(OLD.comment_id,CURDATE(),OLD.content);
 end//
 DELIMITER ;
 
-drop trigger if exists comment_removed;
+drop trigger if exists comment_updated_tv_series;
 DELIMITER // 
-CREATE TRIGGER comment_removed AFTER DELETE ON comments for each row
+CREATE TRIGGER comment_updated_tv_series AFTER UPDATE ON comments_movies for each row
 begin
-	insert into edited_comments(edited_comment_id,comment_edit_date,content_before_edit) values(OLD.comment_id,CURDATE(),'remove comment:'+OLD.content);
+	insert into edited_comments_tv_series(edited_comment_id,comment_edit_date,content_before_edit) values(OLD.comment_id,CURDATE(),OLD.content);
 end//
 DELIMITER ;
+
