@@ -245,8 +245,8 @@ this_proc:begin
 		select 'Użytkownik o podanym identyfikatorze już istnieje' as message;
         LEAVE this_proc;
 	else
-		insert into users(first_name, last_name, create_date, is_active, nick, email, is_moderator) values(first_name, last_name, CURDATE(), 1, nick, email, 0);
-		select exists(select * from users where nick = username) into new_user_id;
+		insert into users(first_name, last_name, create_date, is_active, nick, email, is_moderator) values(first_name, last_name, CURDATE(), 1, username, email, 0);
+		select user_id from users where nick = username into new_user_id;
 		insert into passwords(user_id, password_hash) values (new_user_id, md5(user_password));
 		insert into account_settings (user_id, night_mode, timezone, is_newsletter) values (new_user_id, 0, 'America/New_York', 1);
 	end if;
@@ -261,7 +261,7 @@ this_proc:begin
 		select 'Konwersacja pomiędzy tymi użytkownikami już istnieje' as message;
         LEAVE this_proc;
 	end if;
-	insert into conversation(user_one, user_two, time) values (user_one, user_two, UNIX_TIMESTAMP());
+	insert into conversation(user_one, user_two, time) values (user_one_input, user_two_input, UNIX_TIMESTAMP());
 end//
 DELIMITER ;
 
