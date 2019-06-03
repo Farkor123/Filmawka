@@ -33,7 +33,7 @@ Call add_point_to_review_movie(2 ,5 );
 
 
 
--- dodanie punktu do czekajacej recenzji serii tv przez zalogowanego uzytkownika, a nastepnie 
+-- dodanie punktu do czekajacej recenzji serii tv przez zalogowanego uzytkownika, 
 select get_points_from_waiting_review_tv_series(2);
 Call add_point_to_review_tv_series(2 ,6 );
 select get_points_from_waiting_review_tv_series(2);
@@ -55,7 +55,7 @@ select count(*) from waiting_reviews_movies;
 -- ponowna proba dodania recenzji tego samego filmu
 CALL add_waiting_movie_review(2,6,'text test');
 select count(*) from waiting_reviews_movies;
--- proba dodania filmu przez niezalogowanego uzytkownika
+-- proba dodania recenzji filmu przez niezalogowanego uzytkownika
 CALL add_waiting_movie_review(2,9,'text test');
 select count(*) from waiting_reviews_movies;
 -- usuniecie recenzji przez uzytkownika
@@ -66,11 +66,10 @@ CALL remove_waiting_movie_review(get_wait_review_id_by_movie_id_and_user_id(2,6)
 select count(*) from waiting_reviews_movies;
 
 -- niepowodzenie, brak uprawnien
-select count(*) from waiting_reviews_movies;
 CALL add_waiting_movie_review(2,6,'text test');
+select count(*) from waiting_reviews_movies;
 CALL remove_waiting_movie_review(get_wait_review_id_by_movie_id_and_user_id(2,6),10);
 select count(*) from waiting_reviews_movies;
-CALL remove_waiting_movie_review(get_wait_review_id_by_movie_id_and_user_id(2,6),6);
 
 -- poprawne dodanie i usuniecie oczekujacej recenzji
 select count(*) from waiting_reviews_tv_series;
