@@ -1,4 +1,4 @@
-﻿use filmawka;
+use filmawka;
 drop function if exists get_main_review_id_by_movie_id;
 DELIMITER //
 create function get_main_review_id_by_movie_id(movie_id int) returns int reads sql data

@@ -1,4 +1,4 @@
-﻿-- functions
+-- functions
 drop function if exists add_comment_to_movie;
 DELIMITER //
 create function add_comment_to_movie(movie_id int,user_id int,content MEDIUMTEXT) returns BOOLEAN reads sql data

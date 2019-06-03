@@ -1,6 +1,4 @@
-﻿use filmawka;
-
-
+use filmawka;
 
 insert into comments_movies(movie_id, user_id, comment_date,content) values (1, 1, NOW(),'przykadowy komentarz 888');
 insert into comments_movies(movie_id, user_id, comment_date,content) values (1, 2, NOW(),'przykadowy komentarz testtttesttttesttttesttttesttttesttttesttttesttt');
@@ -15,5 +13,3 @@ insert into comments_tv_series(tv_series_id, user_id, comment_date,content) valu
 insert into comments_tv_series(tv_series_id, user_id, comment_date,content) values (1, 6, NOW(),'przykadowy komentarz 4');
 insert into comments_tv_series(tv_series_id, user_id, comment_date,content) values (2, 1, NOW(),'przykadowy komentarz 5');
 insert into comments_tv_series(tv_series_id, user_id, comment_date,content) values (2, 3, NOW(),'przykadowy komentarz 6');
-
-
