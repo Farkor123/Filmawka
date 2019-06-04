@@ -21,8 +21,8 @@ set @var_get_user_timezone = get_user_timezone(4);
 select @var_get_user_timezone;
 
 -- pokazywanie wiadomości użytkownika po id
-set @var_get_user_conversation_reply = get_user_conversation_reply(4);
-select @var_get_user_conversation_reply;
+set @var_get_conversation_reply = get_conversation_reply(4);
+select @var_get_conversation_reply;
 
 -- wyszkiwanie rozmowy użytkownika po id
 set @var_get_conversation = get_conversation(4);
